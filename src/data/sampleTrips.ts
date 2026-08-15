@@ -12,7 +12,7 @@ export const initialTrips: Trip[] = [
     startDate: '2025-04-02',
     endDate: '2025-04-06',
     daysCount: 5,
-    coverImage: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1600&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1593493465824-1773268b8e2a?auto=format&fit=crop&w=1600&q=80',
     summary: '趁著四月初春櫻花盛開，我們踏上了久違的京都散策之旅。從清晨薄霧中的清水寺舞台，到嵐山渡月橋邊的抹茶香氣，古都的每一片石板路與飄落的櫻花瓣都讓人心醉神迷。',
     companions: ['小涵 (攝影狂)', '阿偉 (美食領隊)', '我'],
     budget: {
@@ -318,12 +318,12 @@ export const initialTrips: Trip[] = [
     photos: [
       {
         id: 'ph-kyoto-1',
-        url: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80',
-        caption: '清水寺舞台遠眺，粉櫻與古剎在春光中靜立。',
-        location: '清水寺',
+        url: 'https://images.unsplash.com/photo-1593493465824-1773268b8e2a?auto=format&fit=crop&w=1200&q=80',
+        caption: '金閣寺（鹿苑寺）池畔倒影，金碧輝煌與翠綠松樹交織的經典絕景。',
+        location: '金閣寺',
         dayNumber: 1,
         date: '2025-04-02',
-        tags: ['古寺', '櫻花', '世界遺產', '風景'],
+        tags: ['古寺', '金閣寺', '世界遺產', '風景'],
         isCover: true,
         liked: true
       },

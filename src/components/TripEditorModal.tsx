@@ -366,18 +366,45 @@ export function TripEditorModal({
 
             {/* Cover Image */}
             <div>
-              <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
-                封面攝影照片網址 (Image URL)：
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E]">
+                  封面攝影照片 (Banner Image)：
+                </label>
+                <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#33302D] text-[#FAF9F6] text-[10px] uppercase tracking-wider rounded-xs transition-colors shadow-xs">
+                  <ImageIcon className="w-3 h-3" />
+                  <span>從電腦上傳照片</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      const reader = new FileReader();
+                      reader.onload = (uploadEvent) => {
+                        const result = uploadEvent.target?.result as string;
+                        if (result) {
+                          setCoverImage(result);
+                        }
+                      };
+                      reader.readAsDataURL(file);
+                    }}
+                  />
+                </label>
+              </div>
               <input
                 type="text"
                 value={coverImage}
                 onChange={(e) => setCoverImage(e.target.value)}
+                placeholder="或輸入圖片網址 (Image URL)"
                 className="w-full bg-white border border-[#D5D2C8] p-2 text-xs font-mono"
               />
               {coverImage && (
-                <div className="mt-2 h-28 overflow-hidden bg-[#E8E6DF]">
+                <div className="mt-2 h-32 overflow-hidden bg-[#E8E6DF] border border-[#D5D2C8] relative group">
                   <img src={coverImage} alt="封面預覽" className="w-full h-full object-cover" />
+                  <div className="absolute inset-x-0 bottom-0 bg-black/60 text-white text-[10px] py-1 px-2 text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    封面預覽
+                  </div>
                 </div>
               )}
             </div>

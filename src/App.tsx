@@ -198,6 +198,18 @@ export default function App() {
     }
   };
 
+  const handleUpdateTripCover = (tripId: string, newCoverUrl: string) => {
+    const trip = trips.find(t => t.id === tripId);
+    if (!trip) return;
+    const updatedTrip = { ...trip, coverImage: newCoverUrl };
+    const updated = saveTrip(updatedTrip);
+    setTrips(updated);
+    if (selectedTrip?.id === tripId) {
+      setSelectedTrip(updatedTrip);
+    }
+    setSharedToast('已成功更新封面照片！');
+  };
+
   const handleAddPhotoToTrip = (tripId: string, photo: PhotoItem) => {
     const target = trips.find((t) => t.id === tripId);
     if (!target) return;
