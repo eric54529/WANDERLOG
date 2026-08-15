@@ -29,7 +29,7 @@ function sanitizeTripsData(trips: Trip[]): Trip[] {
       return {
         ...sampleMatch,
         ...trip,
-        coverImage: sampleMatch.coverImage,
+        coverImage: trip.coverImage && trip.coverImage.trim() !== '' ? trip.coverImage : sampleMatch.coverImage,
         places: sampleMatch.places,
         days: sampleMatch.days,
         photos: [...mergedPhotos, ...customAddedPhotos],
