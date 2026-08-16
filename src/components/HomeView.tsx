@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Trip, PhotoItem } from '../types';
 import { getCountryClickCount } from '../utils/storage';
 import { 
@@ -13,7 +13,9 @@ import {
   Globe, 
   Navigation,
   Image as ImageIcon,
-  MousePointerClick
+  MousePointerClick,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -39,9 +41,31 @@ export function HomeView({
   countryClicks,
   onRecordCountryClick,
 }: HomeViewProps) {
+  // Select up to 3 trips from different countries for the banner carousel
+  const bannerTrips = useMemo(() => {
+    const map = new Map<string, Trip>();
+    for (const t of trips) {
+      if (!map.has(t.country)) {
+        map.set(t.country, t);
+      }
+      if (map.size >= 3) break;
+    }
+    const list = Array.from(map.values());
+    return list.length > 0 ? list : trips.slice(0, 3);
+  }, [trips]);
+
   const [featuredIndex, setFeaturedIndex] = useState(0);
 
-  const featuredTrip = trips[featuredIndex] || trips[0];
+  const featuredTrip = bannerTrips[featuredIndex] || bannerTrips[0] || trips[0];
+
+  // Auto rotation effect every 6 seconds
+  useEffect(() => {
+    if (bannerTrips.length <= 1) return;
+    const timer = setInterval(() => {
+      setFeaturedIndex((prev) => (prev + 1) % bannerTrips.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [bannerTrips.length]);
 
   // Aggregate stats
   const uniqueCountries = new Set(trips.map((t) => t.country)).size;
@@ -74,23 +98,43 @@ export function HomeView({
               <span>FEATURED VOLUME</span>
               <span>—</span>
               <span className="text-[#1F1E1D] font-medium font-serif italic text-sm">{featuredTrip.destination}</span>
+              <span className="text-xs font-mono text-[#99958E] ml-2">({featuredIndex + 1} / {bannerTrips.length})</span>
             </div>
 
-            {/* Quick Trip Switcher Tabs */}
-            <div className="flex items-center gap-2">
-              {trips.map((t, idx) => (
+            {/* Quick Trip Switcher Tabs & Arrows */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                {bannerTrips.map((t, idx) => (
+                  <button
+                    key={t.id}
+                    onClick={() => setFeaturedIndex(idx)}
+                    className={`px-3 py-1 text-[11px] uppercase tracking-wider transition-all rounded-xs ${
+                      featuredIndex === idx
+                        ? 'bg-[#1F1E1D] text-[#FAF9F6] font-medium'
+                        : 'text-[#88857E] hover:text-[#1F1E1D] hover:bg-[#F2EFE8]'
+                    }`}
+                  >
+                    {String(idx + 1).padStart(2, '0')} · {t.country}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-1 border-l border-[#EAE7DF] pl-2">
                 <button
-                  key={t.id}
-                  onClick={() => setFeaturedIndex(idx)}
-                  className={`px-2.5 py-1 text-[11px] uppercase tracking-wider transition-all rounded-xs ${
-                    featuredIndex === idx
-                      ? 'bg-[#1F1E1D] text-[#FAF9F6] font-medium'
-                      : 'text-[#88857E] hover:text-[#1F1E1D] hover:bg-[#F2EFE8]'
-                  }`}
+                  onClick={() => setFeaturedIndex((prev) => (prev - 1 + bannerTrips.length) % bannerTrips.length)}
+                  className="p-1 text-[#78756E] hover:text-[#1F1E1D] transition-colors"
+                  title="上一張"
                 >
-                  {String(idx + 1).padStart(2, '0')} · {t.destination.split('&')[0].split('(')[0].trim()}
+                  <ChevronLeft className="w-4 h-4" />
                 </button>
-              ))}
+                <button
+                  onClick={() => setFeaturedIndex((prev) => (prev + 1) % bannerTrips.length)}
+                  className="p-1 text-[#78756E] hover:text-[#1F1E1D] transition-colors"
+                  title="下一張"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -113,35 +157,29 @@ export function HomeView({
             {/* Editorial Typographic Overlay */}
             <div className="absolute inset-0 flex flex-col justify-between p-8 sm:p-12 md:p-16 z-10">
               
-              {/* Top Meta info */}
-              <div className="flex items-center justify-between text-xs tracking-[0.2em] uppercase text-[#DCD9D0]/90">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FAF9F6]" />
-                  <span className="font-medium">{featuredTrip.country}</span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs bg-white/15 text-[11px] font-mono text-[#FAF9F6]">
-                    <MousePointerClick className="w-3 h-3 opacity-80" />
-                    <span>累計 {getCountryClickCount(featuredTrip.country, countryClicks)} 次點擊</span>
+              {/* Top Meta info: Clean & Uncluttered */}
+              <div className="flex items-start justify-between text-xs tracking-[0.25em] uppercase text-[#DCD9D0]">
+                <div className="space-y-1">
+                  <span className="font-serif tracking-[0.3em] text-sm sm:text-base font-medium text-[#FAF9F6]">
+                    {featuredTrip.destination.split('(')[0].trim().toUpperCase()}
                   </span>
-                  <span className="opacity-50">/</span>
-                  <span>{featuredTrip.daysCount} DAYS EXPEDITION</span>
+                  <div className="font-mono text-xs text-[#ABA79C] tracking-widest">
+                    {featuredTrip.startDate} — {featuredTrip.endDate}
+                  </div>
                 </div>
-                <div className="hidden sm:block text-[11px] text-[#ABA79C] font-mono">
-                  {featuredTrip.startDate} — {featuredTrip.endDate}
+
+                <div className="font-mono text-xs tracking-widest text-[#FAF9F6] bg-white/10 px-3 py-1.5 rounded-xs backdrop-blur-sm border border-white/20">
+                  {featuredTrip.daysCount} DAYS
                 </div>
               </div>
 
-              {/* Bottom Main Content */}
-              <div className="space-y-6 max-w-3xl">
-                <div className="space-y-3">
-                  <span className="inline-block text-xs uppercase tracking-[0.25em] text-[#C4C0B6] font-sans">
-                    {vibeLabels[featuredTrip.vibe] || featuredTrip.vibe}
-                  </span>
-                  <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#FAF9F6] leading-[1.15]">
-                    {featuredTrip.title}
-                  </h1>
-                </div>
+              {/* Bottom Main Content: Clean title and summary */}
+              <div className="space-y-4 max-w-3xl">
+                <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#FAF9F6] leading-[1.2]">
+                  {featuredTrip.title}
+                </h1>
 
-                <p className="text-sm sm:text-base text-[#D5D2C8] leading-relaxed line-clamp-2 md:line-clamp-3 font-light max-w-2xl">
+                <p className="text-sm sm:text-base text-[#D5D2C8] leading-relaxed line-clamp-2 font-light max-w-xl">
                   {featuredTrip.summary}
                 </p>
 

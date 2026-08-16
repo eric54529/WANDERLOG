@@ -56,10 +56,10 @@ export function Navbar({
             </div>
             <div>
               <div className="font-serif text-xl sm:text-2xl tracking-[0.15em] font-normal text-[#1F1E1D] uppercase">
-                WanderLog
+                VOYAGE & CO.
               </div>
               <p className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] font-sans -mt-0.5">
-                TRAVEL MONOGRAPH & JOURNAL
+                PERSONAL TRAVEL MAGAZINE & JOURNAL
               </p>
             </div>
           </div>

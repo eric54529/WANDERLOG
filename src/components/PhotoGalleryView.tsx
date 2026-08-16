@@ -12,7 +12,9 @@ import {
   Compass, 
   SlidersHorizontal,
   Maximize2,
-  Tag
+  Tag,
+  Edit3,
+  Trash2
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -20,6 +22,8 @@ interface PhotoGalleryViewProps {
   trips: Trip[];
   onTogglePhotoLike: (tripId: string, photoId: string) => void;
   onAddPhotoToTrip: (tripId: string, photo: PhotoItem) => void;
+  onUpdatePhoto: (tripId: string, photo: PhotoItem) => void;
+  onDeletePhoto: (tripId: string, photoId: string) => void;
   onOpenLightbox: (photo: PhotoItem, allPhotos: PhotoItem[]) => void;
   onOpenShareModal: (trip?: Trip) => void;
   isAuthorMode: boolean;
@@ -29,6 +33,8 @@ export function PhotoGalleryView({
   trips,
   onTogglePhotoLike,
   onAddPhotoToTrip,
+  onUpdatePhoto,
+  onDeletePhoto,
   onOpenLightbox,
   onOpenShareModal,
   isAuthorMode,
@@ -43,6 +49,13 @@ export function PhotoGalleryView({
   const [newCaption, setNewCaption] = useState('');
   const [newLocation, setNewLocation] = useState('');
   const [newDayNumber, setNewDayNumber] = useState(1);
+
+  // Edit photo state
+  const [editingPhoto, setEditingPhoto] = useState<{ photo: PhotoItem; tripId: string } | null>(null);
+  const [editUrl, setEditUrl] = useState('');
+  const [editCaption, setEditCaption] = useState('');
+  const [editLocation, setEditLocation] = useState('');
+  const [editDayNumber, setEditDayNumber] = useState(1);
 
   // Collect all photos with their parent trip info
   const allPhotosWithTrip = useMemo(() => {
@@ -88,6 +101,38 @@ export function PhotoGalleryView({
     setNewLocation('');
     setIsAddPhotoOpen(false);
     confetti({ particleCount: 30, spread: 60 });
+  };
+
+  const handleStartEdit = (photo: PhotoItem, tripId: string, e: MouseEvent) => {
+    e.stopPropagation();
+    setEditingPhoto({ photo, tripId });
+    setEditUrl(photo.url);
+    setEditCaption(photo.caption);
+    setEditLocation(photo.location || '');
+    setEditDayNumber(photo.dayNumber || 1);
+  };
+
+  const handleEditPhotoSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!editingPhoto || !editUrl.trim() || !editCaption.trim()) return;
+
+    const updated: PhotoItem = {
+      ...editingPhoto.photo,
+      url: editUrl.trim(),
+      caption: editCaption.trim(),
+      location: editLocation.trim() || undefined,
+      dayNumber: Number(editDayNumber) || 1,
+    };
+
+    onUpdatePhoto(editingPhoto.tripId, updated);
+    setEditingPhoto(null);
+  };
+
+  const handleDelete = (tripId: string, photoId: string, e: MouseEvent) => {
+    e.stopPropagation();
+    if (window.confirm('確定要刪除這張相片嗎？')) {
+      onDeletePhoto(tripId, photoId);
+    }
   };
 
   return (
@@ -231,6 +276,96 @@ export function PhotoGalleryView({
         </form>
       )}
 
+      {/* Edit Photo Collapsible Drawer - ONLY for Author */}
+      {isAuthorMode && editingPhoto && (
+        <form
+          onSubmit={handleEditPhotoSubmit}
+          className="p-6 bg-[#F5F3EC] border border-[#EAE7DF] space-y-4 max-w-2xl text-xs"
+        >
+          <div className="flex items-center justify-between pb-2 border-b border-[#E0DDD5]">
+            <h3 className="font-serif text-base text-[#1F1E1D]">
+              編輯相片資訊
+            </h3>
+            <button
+              type="button"
+              onClick={() => setEditingPhoto(null)}
+              className="text-[#88857E] hover:text-[#1F1E1D]"
+            >
+              ✕
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+                第幾天拍攝 (Day)：
+              </label>
+              <input
+                type="number"
+                min="1"
+                max="30"
+                value={editDayNumber}
+                onChange={(e) => setEditDayNumber(Number(e.target.value))}
+                className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none font-mono"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+                拍攝地點：
+              </label>
+              <input
+                type="text"
+                value={editLocation}
+                onChange={(e) => setEditLocation(e.target.value)}
+                className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+              照片網址 (Image URL) *：
+            </label>
+            <input
+              type="text"
+              value={editUrl}
+              onChange={(e) => setEditUrl(e.target.value)}
+              className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none font-mono"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+              照片敘述 / 圖說 *：
+            </label>
+            <input
+              type="text"
+              value={editCaption}
+              onChange={(e) => setEditCaption(e.target.value)}
+              className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+              required
+            />
+          </div>
+
+          <div className="flex justify-end gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => setEditingPhoto(null)}
+              className="px-4 py-2 border border-[#D5D2C8] hover:border-[#1F1E1D]"
+            >
+              取消
+            </button>
+            <button
+              type="submit"
+              className="px-5 py-2 bg-[#1F1E1D] text-[#FAF9F6] uppercase tracking-wider"
+            >
+              儲存變更
+            </button>
+          </div>
+        </form>
+      )}
+
       {/* Filter Tabs */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-[#EAE7DF] text-xs">
         <div className="flex flex-wrap items-center gap-2">
@@ -309,6 +444,26 @@ export function PhotoGalleryView({
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   loading="lazy"
                 />
+
+                {/* Author Edit / Delete Controls */}
+                {isAuthorMode && (
+                  <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                    <button
+                      onClick={(e) => handleStartEdit(photo, trip.id, e)}
+                      className="p-1.5 rounded-full bg-black/70 text-white hover:bg-black transition backdrop-blur-md"
+                      title="編輯相片資訊"
+                    >
+                      <Edit3 className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={(e) => handleDelete(trip.id, photo.id, e)}
+                      className="p-1.5 rounded-full bg-red-600/80 text-white hover:bg-red-600 transition backdrop-blur-md"
+                      title="刪除相片"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
 
                 {/* Like Button Trigger */}
                 <button

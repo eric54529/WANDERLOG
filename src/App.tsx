@@ -218,6 +218,29 @@ export default function App() {
       photos: [photo, ...target.photos],
     };
     handleSaveTrip(updatedTrip);
+    setSharedToast('已成功新增相片！');
+  };
+
+  const handleUpdatePhoto = (tripId: string, updatedPhoto: PhotoItem) => {
+    const target = trips.find((t) => t.id === tripId);
+    if (!target) return;
+    const updatedTrip: Trip = {
+      ...target,
+      photos: target.photos.map((p) => (p.id === updatedPhoto.id ? updatedPhoto : p)),
+    };
+    handleSaveTrip(updatedTrip);
+    setSharedToast('已成功更新相片資訊！');
+  };
+
+  const handleDeletePhoto = (tripId: string, photoId: string) => {
+    const target = trips.find((t) => t.id === tripId);
+    if (!target) return;
+    const updatedTrip: Trip = {
+      ...target,
+      photos: target.photos.filter((p) => p.id !== photoId),
+    };
+    handleSaveTrip(updatedTrip);
+    setSharedToast('已成功刪除相片！');
   };
 
   const handleOpenLightbox = (photo: PhotoItem, allPhotos: PhotoItem[]) => {
@@ -363,6 +386,8 @@ export default function App() {
             trips={trips}
             onTogglePhotoLike={handleTogglePhotoLike}
             onAddPhotoToTrip={handleAddPhotoToTrip}
+            onUpdatePhoto={handleUpdatePhoto}
+            onDeletePhoto={handleDeletePhoto}
             onOpenLightbox={handleOpenLightbox}
             onOpenShareModal={handleOpenShare}
             isAuthorMode={isAuthorMode}

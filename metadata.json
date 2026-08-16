@@ -1,6 +1,7 @@
 {
-  "name": "WanderLog - 旅行日誌與分享",
-  "description": "每次旅遊後將旅程故事、精選照片、足跡地圖與回憶整理並一鍵分享給好友的旅行記錄網站。",
+  "name": "VOYAGE & CO. — 個人獨立旅遊雜誌與手記",
+  "description": "記錄個人走訪世界各地的真實足跡、攝影影像與深度旅行感受的獨立發行旅遊雜誌。",
   "requestFramePermissions": ["geolocation"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
+
