@@ -89,7 +89,7 @@ export function Navbar({
                   : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
-              首頁 · OVERVIEW
+              OVERVIEW
             </button>
 
             <button
@@ -101,7 +101,7 @@ export function Navbar({
                   : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
-              旅行紀錄 · ARCHIVE ({trips.length})
+              ARCHIVE ({trips.length})
             </button>
 
             <button
@@ -113,7 +113,7 @@ export function Navbar({
                   : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
-              攝影集 · GALLERY
+              GALLERY
             </button>
 
             <button
@@ -125,7 +125,7 @@ export function Navbar({
                   : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
-              足跡地圖 · MAP
+              MAP
             </button>
 
             <button
@@ -138,7 +138,7 @@ export function Navbar({
               }`}
             >
               <Package className="w-3.5 h-3.5 text-[#9A8060]" />
-              <span>訂單專區 · ORDERS</span>
+              <span>MEMBER</span>
             </button>
 
             <button
@@ -150,7 +150,7 @@ export function Navbar({
                   : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
-              常見問答 · FAQ
+              FAQ
             </button>
           </nav>
 
@@ -161,7 +161,7 @@ export function Navbar({
               <Search className="w-3.5 h-3.5 text-[#9C998F] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="搜尋旅行..."
+                placeholder="Search trips..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setShowSearchDropdown(true)}
@@ -173,7 +173,7 @@ export function Navbar({
               {showSearchDropdown && searchQuery.trim() && (
                 <div className="absolute top-full mt-2 w-72 right-0 bg-[#FAF9F6] dark:bg-[#20201E] border border-[#E0DDD5] dark:border-[#393733] rounded-sm shadow-xl p-2 z-50">
                   <div className="text-[10px] tracking-wider uppercase text-[#88857E] px-2 py-1">
-                    搜尋結果 ({matchedTrips.length})
+                    Search Results ({matchedTrips.length})
                   </div>
                   {matchedTrips.length > 0 ? (
                     <div className="max-h-60 overflow-y-auto space-y-1 mt-1">
@@ -197,7 +197,7 @@ export function Navbar({
                     </div>
                   ) : (
                     <div className="p-3 text-xs text-[#88857E] text-center font-serif">
-                      找不到與「{searchQuery}」相關的旅行
+                      No trips found for "{searchQuery}"
                     </div>
                   )}
                 </div>
@@ -212,13 +212,13 @@ export function Navbar({
               className="p-2 rounded-sm border border-[#DCD9D0] dark:border-[#393733] hover:bg-[#F0EEE6] dark:hover:bg-[#2A2A27] text-[#383633] dark:text-[#E8E5DE] transition-colors relative group"
               title={
                 isFollowingSystem
-                  ? `目前跟隨裝置預設 (${isDarkMode ? '深色' : '淺色'})。點擊切換手動模式`
-                  : `目前為手動設定 (${isDarkMode ? '深色' : '淺色'})。點擊切換`
+                  ? `Following system theme (${isDarkMode ? 'Dark' : 'Light'}). Click to toggle.`
+                  : `Manual theme (${isDarkMode ? 'Dark' : 'Light'}). Click to toggle.`
               }
             >
               {isDarkMode ? <Sun className="w-4 h-4 text-[#B39A73]" /> : <Moon className="w-4 h-4 text-[#9A8060]" />}
               {isFollowingSystem && (
-                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#9A8060] dark:bg-[#B39A73]" title="跟隨裝置預設中" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#9A8060] dark:bg-[#B39A73]" title="System Theme" />
               )}
             </button>
 
@@ -227,7 +227,7 @@ export function Navbar({
               id="btn-share-all"
               onClick={onOpenShareAll}
               className="p-2 rounded-sm border border-[#DCD9D0] dark:border-[#393733] hover:bg-[#F0EEE6] dark:hover:bg-[#2A2A27] text-[#383633] dark:text-[#E8E5DE] transition-colors relative"
-              title="分享網址"
+              title="Share Link"
             >
               <Share2 className="w-4 h-4 text-[#9A8060] dark:text-[#B39A73] stroke-[2]" />
               {typeof shareCount === 'number' && shareCount > 0 && (
@@ -244,7 +244,7 @@ export function Navbar({
                   id="btn-member-profile"
                   onClick={onOpenMemberModal}
                   className="flex items-center gap-1.5 px-1.5 py-1 text-[#2C2A29] dark:text-[#E8E5DE] text-xs hover:text-[#9A8060] transition group max-w-[140px] sm:max-w-[180px]"
-                  title={`會員信箱：${currentMember.email}（點擊查看會員中心）`}
+                  title={`Member: ${currentMember.email} (Click to open Member Profile)`}
                 >
                   <UserCheck className="w-3.5 h-3.5 text-[#9A8060] shrink-0" />
                   <span className="font-mono text-[11px] sm:text-xs truncate">{currentMember.email}</span>
@@ -256,7 +256,7 @@ export function Navbar({
                   id="btn-member-logout"
                   onClick={onLogoutMember}
                   className="p-1 text-[#88857E] hover:text-red-600 dark:hover:text-red-400 transition"
-                  title="登出目前帳號"
+                  title="Sign Out"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                 </button>
@@ -266,11 +266,11 @@ export function Navbar({
                 id="btn-member-login"
                 onClick={onOpenMemberModal}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm border border-[#D5D2C8] dark:border-[#393733] bg-[#FAF9F6] dark:bg-[#20201E] hover:bg-[#F0EEE6] dark:hover:bg-[#2A2A27] text-[#383633] dark:text-[#E8E5DE] text-xs transition shadow-2xs font-sans font-medium"
-                title="以 Email 註冊或登入 Supabase 帳號"
+                title="Sign in with Email"
               >
                 <User className="w-3.5 h-3.5 text-[#9A8060] dark:text-[#B39A73]" />
-                <span className="hidden sm:inline">登入 / 註冊</span>
-                <span className="sm:hidden">登入</span>
+                <span className="hidden sm:inline">Sign In / Join</span>
+                <span className="sm:hidden">Sign In</span>
               </button>
             )}
 
@@ -281,10 +281,10 @@ export function Navbar({
                   id="btn-author-indicator"
                   onClick={onOpenAuthorModal}
                   className="flex items-center gap-1.5 px-2 py-1.5 bg-[#EAE7DF] dark:bg-[#2A2A27] hover:bg-[#DFDBD0] text-[#2C2A29] dark:text-[#FAF9F6] text-[11px] uppercase tracking-wider rounded-sm transition font-sans border border-[#D5D2C8] dark:border-[#393733]"
-                  title="點擊管理創作者狀態"
+                  title="Author Mode Active"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400 stroke-[2]" />
-                  <span className="hidden lg:inline font-medium">創作者模式</span>
+                  <span className="hidden lg:inline font-medium">Author Mode</span>
                 </button>
 
                 <button
@@ -293,7 +293,7 @@ export function Navbar({
                   className="flex items-center gap-1.5 px-3 py-1.5 bg-[#232120] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] dark:text-[#171716] text-[#FAF9F6] text-xs tracking-widest uppercase rounded-sm transition shadow-sm font-sans"
                 >
                   <Plus className="w-3.5 h-3.5 stroke-[2]" />
-                  <span className="hidden sm:inline">新增旅行</span>
+                  <span className="hidden sm:inline">New Trip</span>
                 </button>
               </div>
             ) : null}
@@ -308,7 +308,7 @@ export function Navbar({
               activeTab === 'home' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
-            首頁
+            OVERVIEW
           </button>
           <button
             onClick={() => setActiveTab('trips')}
@@ -318,7 +318,7 @@ export function Navbar({
                 : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
-            紀錄 ({trips.length})
+            ARCHIVE ({trips.length})
           </button>
           <button
             onClick={() => setActiveTab('gallery')}
@@ -326,7 +326,7 @@ export function Navbar({
               activeTab === 'gallery' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
-            相簿
+            GALLERY
           </button>
           <button
             onClick={() => setActiveTab('map')}
@@ -334,7 +334,7 @@ export function Navbar({
               activeTab === 'map' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
-            地圖
+            MAP
           </button>
           <button
             onClick={() => setActiveTab('orders')}
@@ -342,7 +342,7 @@ export function Navbar({
               activeTab === 'orders' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
-            訂單
+            MEMBER
           </button>
           <button
             onClick={() => setActiveTab('faq')}
@@ -350,7 +350,7 @@ export function Navbar({
               activeTab === 'faq' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
-            常見問答
+            FAQ
           </button>
         </div>
 

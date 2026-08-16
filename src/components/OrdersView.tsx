@@ -230,10 +230,10 @@ CREATE INDEX IF NOT EXISTS idx_orders_created_at ON public.orders(created_at DES
           <div>
             <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#9A8060] font-mono font-medium">
               <Package className="w-4 h-4" />
-              <span>SUPABASE ORDERS · 會員訂單專區</span>
+              <span>MEMBER PORTAL · 會員訂單與專屬服務</span>
             </div>
             <h1 className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] dark:text-[#FAF9F6] tracking-tight mt-1">
-              訂單管理與下單
+              會員專區 & 訂單服務
             </h1>
           </div>
 

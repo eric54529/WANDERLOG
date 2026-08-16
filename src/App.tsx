@@ -622,7 +622,7 @@ export default function App() {
               }}
               className="hover:text-[#FAF9F6] transition"
             >
-              首頁
+              OVERVIEW
             </button>
             <button
               onClick={() => {
@@ -631,7 +631,7 @@ export default function App() {
               }}
               className="hover:text-[#FAF9F6] transition"
             >
-              旅行列表 ({trips.length})
+              ARCHIVE ({trips.length})
             </button>
             <button
               onClick={() => {
@@ -640,7 +640,7 @@ export default function App() {
               }}
               className="hover:text-[#FAF9F6] transition"
             >
-              攝影集
+              GALLERY
             </button>
             <button
               onClick={() => {
@@ -649,7 +649,7 @@ export default function App() {
               }}
               className="hover:text-[#FAF9F6] transition"
             >
-              足跡地圖
+              MAP
             </button>
             <button
               onClick={() => {
@@ -658,13 +658,13 @@ export default function App() {
               }}
               className="hover:text-[#FAF9F6] transition text-[#9A8060] dark:text-[#B39A73]"
             >
-              訂單專區
+              MEMBER
             </button>
             <button
               onClick={() => handleOpenShare()}
               className="text-[#FAF9F6] hover:underline"
             >
-              分享專屬網址
+              SHARE
             </button>
           </div>
 
