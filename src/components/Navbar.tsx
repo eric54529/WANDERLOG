@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ActiveTab, Trip } from '../types';
-import { Search, Plus, Share2, Compass, ShieldCheck, Lock } from 'lucide-react';
+import { Search, Plus, Share2, Compass, ShieldCheck, Lock, Sun, Moon } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: ActiveTab;
@@ -14,6 +14,8 @@ interface NavbarProps {
   isAuthorMode: boolean;
   onOpenAuthorModal: () => void;
   shareCount?: number;
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
 }
 
 export function Navbar({
@@ -28,6 +30,8 @@ export function Navbar({
   isAuthorMode,
   onOpenAuthorModal,
   shareCount,
+  isDarkMode,
+  toggleDarkMode,
 }: NavbarProps) {
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
@@ -170,6 +174,15 @@ export function Navbar({
                 </div>
               )}
             </div>
+
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-sm border border-[#DCD9D0] dark:border-[#393733] hover:bg-[#F0EEE6] dark:hover:bg-[#2A2A27] text-[#383633] dark:text-[#E8E5DE] transition-colors"
+              title={isDarkMode ? '切換至淺色模式 (Light Mode)' : '切換至深色模式 (Dark Mode)'}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 text-[#B39A73]" /> : <Moon className="w-4 h-4 text-[#9A8060]" />}
+            </button>
 
             {/* Share Travel Monograph Link */}
             <button

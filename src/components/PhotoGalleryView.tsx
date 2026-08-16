@@ -14,7 +14,8 @@ import {
   Maximize2,
   Tag,
   Edit3,
-  Trash2
+  Trash2,
+  Image as ImageIcon
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -216,9 +217,32 @@ export function PhotoGalleryView({
           </div>
 
           <div>
-            <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
-              照片網址 (Image URL) *：
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block">
+                照片網址 (Image URL) *：
+              </label>
+              <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#33302D] text-[#FAF9F6] text-[10px] uppercase tracking-wider rounded-xs transition-colors shadow-xs">
+                <ImageIcon className="w-3 h-3" />
+                <span>從電腦上傳相片</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (uploadEvent) => {
+                      const result = uploadEvent.target?.result as string;
+                      if (result) {
+                        setNewPhotoUrl(result);
+                      }
+                    };
+                    reader.readAsDataURL(file);
+                  }}
+                />
+              </label>
+            </div>
             <input
               type="text"
               placeholder="https://..."
@@ -323,9 +347,32 @@ export function PhotoGalleryView({
           </div>
 
           <div>
-            <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
-              照片網址 (Image URL) *：
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block">
+                照片網址 (Image URL) *：
+              </label>
+              <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#33302D] text-[#FAF9F6] text-[10px] uppercase tracking-wider rounded-xs transition-colors shadow-xs">
+                <ImageIcon className="w-3 h-3" />
+                <span>從電腦上傳相片</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (uploadEvent) => {
+                      const result = uploadEvent.target?.result as string;
+                      if (result) {
+                        setEditUrl(result);
+                      }
+                    };
+                    reader.readAsDataURL(file);
+                  }}
+                />
+              </label>
+            </div>
             <input
               type="text"
               value={editUrl}
