@@ -93,4 +93,4 @@ export interface Trip {
   updatedAt: string;
 }
 
-export type ActiveTab = 'home' | 'trips' | 'trip-detail' | 'gallery' | 'map' | 'share';
+export type ActiveTab = 'home' | 'trips' | 'trip-detail' | 'gallery' | 'map' | 'faq' | 'share';

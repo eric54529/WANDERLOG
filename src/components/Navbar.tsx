@@ -16,6 +16,8 @@ interface NavbarProps {
   shareCount?: number;
   isDarkMode: boolean;
   toggleDarkMode: () => void;
+  isFollowingSystem?: boolean;
+  resetToSystemTheme?: () => void;
 }
 
 export function Navbar({
@@ -32,6 +34,8 @@ export function Navbar({
   shareCount,
   isDarkMode,
   toggleDarkMode,
+  isFollowingSystem,
+  resetToSystemTheme,
 }: NavbarProps) {
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
@@ -60,7 +64,7 @@ export function Navbar({
             </div>
             <div>
               <div className="font-serif text-xl sm:text-2xl tracking-[0.15em] font-normal text-[#1F1E1D] uppercase">
-                VOYAGE & CO.
+                WANDERLOG
               </div>
               <p className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] font-sans -mt-0.5">
                 PERSONAL TRAVEL MAGAZINE & JOURNAL
@@ -111,11 +115,23 @@ export function Navbar({
               onClick={() => setActiveTab('map')}
               className={`relative py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
                 activeTab === 'map'
-                  ? 'text-[#1F1E1D] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D]'
-                  : 'text-[#7B7870] hover:text-[#1F1E1D]'
+                  ? 'text-[#1F1E1D] dark:text-[#E8E5DE] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#E8E5DE]'
+                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D]'
               }`}
             >
               足跡地圖 · MAP
+            </button>
+
+            <button
+              id="nav-tab-faq"
+              onClick={() => setActiveTab('faq')}
+              className={`relative py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
+                activeTab === 'faq'
+                  ? 'text-[#1F1E1D] dark:text-[#E8E5DE] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#E8E5DE]'
+                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D]'
+              }`}
+            >
+              常見問答 · FAQ
             </button>
           </nav>
 
@@ -178,23 +194,30 @@ export function Navbar({
             {/* Theme Toggle Button */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-sm border border-[#DCD9D0] dark:border-[#393733] hover:bg-[#F0EEE6] dark:hover:bg-[#2A2A27] text-[#383633] dark:text-[#E8E5DE] transition-colors"
-              title={isDarkMode ? '切換至淺色模式 (Light Mode)' : '切換至深色模式 (Dark Mode)'}
+              onDoubleClick={resetToSystemTheme}
+              className="p-2 rounded-sm border border-[#DCD9D0] dark:border-[#393733] hover:bg-[#F0EEE6] dark:hover:bg-[#2A2A27] text-[#383633] dark:text-[#E8E5DE] transition-colors relative group"
+              title={
+                isFollowingSystem
+                  ? `目前跟隨裝置預設 (${isDarkMode ? '深色' : '淺色'})。點擊切換手動模式，雙擊重設`
+                  : `目前為手動設定 (${isDarkMode ? '深色' : '淺色'})。點擊切換，雙擊恢復跟隨裝置`
+              }
             >
               {isDarkMode ? <Sun className="w-4 h-4 text-[#B39A73]" /> : <Moon className="w-4 h-4 text-[#9A8060]" />}
+              {isFollowingSystem && (
+                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#9A8060] dark:bg-[#B39A73]" title="跟隨裝置預設中" />
+              )}
             </button>
 
             {/* Share Travel Monograph Link */}
             <button
               id="btn-share-all"
               onClick={onOpenShareAll}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-transparent hover:bg-[#F0EEE6] border border-[#DCD9D0] text-[#383633] text-xs tracking-wider uppercase rounded-sm transition font-sans"
-              title="分享網站專屬網址（點擊透過 CounterAPI 計數）"
+              className="p-2 rounded-sm border border-[#DCD9D0] dark:border-[#393733] hover:bg-[#F0EEE6] dark:hover:bg-[#2A2A27] text-[#383633] dark:text-[#E8E5DE] transition-colors relative"
+              title="分享網址"
             >
-              <Share2 className="w-3.5 h-3.5 stroke-[1.5]" />
-              <span className="hidden sm:inline">分享網址</span>
-              {typeof shareCount === 'number' && (
-                <span className="px-1.5 py-0.5 rounded-xs bg-[#EAE7DF] text-[#4A4742] text-[10px] font-mono leading-none">
+              <Share2 className="w-4 h-4 text-[#9A8060] dark:text-[#B39A73] stroke-[2]" />
+              {typeof shareCount === 'number' && shareCount > 0 && (
+                <span className="absolute -top-1 -right-1 px-1 py-0.2 rounded-full bg-[#9A8060] text-white text-[9px] font-mono leading-none">
                   {shareCount}
                 </span>
               )}
@@ -257,10 +280,18 @@ export function Navbar({
           <button
             onClick={() => setActiveTab('map')}
             className={`py-1 px-2 ${
-              activeTab === 'map' ? 'text-[#1F1E1D] font-bold border-b border-[#1F1E1D]' : 'text-[#7B7870]'
+              activeTab === 'map' ? 'text-[#1F1E1D] dark:text-[#E8E5DE] font-bold border-b border-[#1F1E1D] dark:border-[#E8E5DE]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
             地圖
+          </button>
+          <button
+            onClick={() => setActiveTab('faq')}
+            className={`py-1 px-2 ${
+              activeTab === 'faq' ? 'text-[#1F1E1D] dark:text-[#E8E5DE] font-bold border-b border-[#1F1E1D] dark:border-[#E8E5DE]' : 'text-[#7B7870] dark:text-[#A8A49B]'
+            }`}
+          >
+            常見問答
           </button>
         </div>
 

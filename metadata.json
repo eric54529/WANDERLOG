@@ -1,5 +1,5 @@
 {
-  "name": "VOYAGE & CO. — 個人獨立旅遊雜誌與手記",
+  "name": "WANDERLOG",
   "description": "記錄個人走訪世界各地的真實足跡、攝影影像與深度旅行感受的獨立發行旅遊雜誌。",
   "requestFramePermissions": ["geolocation"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

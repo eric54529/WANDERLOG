@@ -18,6 +18,7 @@ import { TripsListView } from './components/TripsListView';
 import { TripDetailView } from './components/TripDetailView';
 import { PhotoGalleryView } from './components/PhotoGalleryView';
 import { TravelMapView } from './components/TravelMapView';
+import { FaqView } from './components/FaqView';
 import { ShareModal } from './components/ShareModal';
 import { TripEditorModal } from './components/TripEditorModal';
 import { AuthorAuthModal } from './components/AuthorAuthModal';
@@ -32,18 +33,45 @@ export default function App() {
   const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
   const [tripDetailInitialSubTab, setTripDetailInitialSubTab] = useState<'story' | 'photos' | 'map'>('story');
   
-  // Dark Mode state
+  // Dark Mode state with system preference default and optional manual override
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     try {
-      return localStorage.getItem('voyage_dark_mode') === 'true';
+      const saved = localStorage.getItem('voyage_dark_mode');
+      if (saved !== null) {
+        return saved === 'true';
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
     } catch {
       return false;
     }
   });
 
+  const [isFollowingSystem, setIsFollowingSystem] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('voyage_dark_mode') === null;
+    } catch {
+      return true;
+    }
+  });
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      try {
+        const saved = localStorage.getItem('voyage_dark_mode');
+        if (saved === null) {
+          setIsDarkMode(e.matches);
+          setIsFollowingSystem(true);
+        }
+      } catch {}
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
   useEffect(() => {
     try {
-      localStorage.setItem('voyage_dark_mode', String(isDarkMode));
       if (isDarkMode) {
         document.documentElement.classList.add('dark');
       } else {
@@ -52,7 +80,23 @@ export default function App() {
     } catch {}
   }, [isDarkMode]);
 
-  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
+  const toggleDarkMode = () => {
+    const next = !isDarkMode;
+    setIsDarkMode(next);
+    setIsFollowingSystem(false);
+    try {
+      localStorage.setItem('voyage_dark_mode', String(next));
+    } catch {}
+  };
+
+  const resetToSystemTheme = () => {
+    try {
+      localStorage.removeItem('voyage_dark_mode');
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(systemDark);
+      setIsFollowingSystem(true);
+    } catch {}
+  };
 
   // Scroll to top button state
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -321,6 +365,8 @@ export default function App() {
         shareCount={shareCount}
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
+        isFollowingSystem={isFollowingSystem}
+        resetToSystemTheme={resetToSystemTheme}
       />
 
       {/* Author Mode Top Floating Bar if Active */}
@@ -439,6 +485,13 @@ export default function App() {
             selectedTripId={selectedTrip?.id}
             onSelectTrip={handleSelectTrip}
             onOpenPhotoLightbox={handleOpenLightbox}
+          />
+        )}
+
+        {activeTab === 'faq' && (
+          <FaqView
+            onNavigateHome={() => handleNavigateTab('home')}
+            onOpenCreateModal={handleOpenCreate}
           />
         )}
 
