@@ -93,4 +93,24 @@ export interface Trip {
   updatedAt: string;
 }
 
-export type ActiveTab = 'home' | 'trips' | 'trip-detail' | 'gallery' | 'map' | 'faq' | 'share';
+export interface MemberUser {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  role?: 'member' | 'vip';
+  registeredAt: string;
+}
+
+export interface OrderItem {
+  id: string;
+  user_id: string;
+  name: string;
+  phone: string;
+  item: string;
+  quantity: number;
+  notes?: string | null;
+  created_at: string;
+}
+
+export type ActiveTab = 'home' | 'trips' | 'trip-detail' | 'gallery' | 'map' | 'faq' | 'share' | 'orders';

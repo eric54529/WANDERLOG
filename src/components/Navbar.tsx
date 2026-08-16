@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ActiveTab, Trip } from '../types';
-import { Search, Plus, Share2, Compass, ShieldCheck, Lock, Sun, Moon } from 'lucide-react';
+import { ActiveTab, Trip, MemberUser } from '../types';
+import { Search, Plus, Share2, Compass, ShieldCheck, Lock, Sun, Moon, User, UserCheck, LogOut, Package } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: ActiveTab;
@@ -18,6 +18,9 @@ interface NavbarProps {
   toggleDarkMode: () => void;
   isFollowingSystem?: boolean;
   resetToSystemTheme?: () => void;
+  currentMember: MemberUser | null;
+  onOpenMemberModal: () => void;
+  onLogoutMember: () => void;
 }
 
 export function Navbar({
@@ -36,6 +39,9 @@ export function Navbar({
   toggleDarkMode,
   isFollowingSystem,
   resetToSystemTheme,
+  currentMember,
+  onOpenMemberModal,
+  onLogoutMember,
 }: NavbarProps) {
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
@@ -49,7 +55,7 @@ export function Navbar({
     : [];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#FAF9F6]/90 backdrop-blur-md border-b border-[#EAE7DF] text-[#242220] transition-colors">
+    <header className="sticky top-0 z-40 bg-[#FAF9F6]/90 dark:bg-[#1A1A18]/90 backdrop-blur-md border-b border-[#EAE7DF] dark:border-[#333330] text-[#242220] dark:text-[#E8E5DE] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-4">
           
@@ -59,11 +65,11 @@ export function Navbar({
             onClick={() => setActiveTab('home')}
             className="flex items-center gap-3 cursor-pointer group shrink-0"
           >
-            <div className="w-8 h-8 rounded-full border border-[#D5D2C8] flex items-center justify-center text-[#2C2A29] group-hover:border-[#2C2A29] transition-colors">
+            <div className="w-8 h-8 rounded-full border border-[#D5D2C8] dark:border-[#444] flex items-center justify-center text-[#2C2A29] dark:text-[#E8E5DE] group-hover:border-[#2C2A29] dark:group-hover:border-[#FAF9F6] transition-colors">
               <Compass className="w-4 h-4 stroke-[1.5]" />
             </div>
             <div>
-              <div className="font-serif text-xl sm:text-2xl tracking-[0.15em] font-normal text-[#1F1E1D] uppercase">
+              <div className="font-serif text-xl sm:text-2xl tracking-[0.15em] font-normal text-[#1F1E1D] dark:text-[#FAF9F6] uppercase">
                 WANDERLOG
               </div>
               <p className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] font-sans -mt-0.5">
@@ -73,14 +79,14 @@ export function Navbar({
           </div>
 
           {/* Navigation Tabs - Understated, Fine Typography */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             <button
               id="nav-tab-home"
               onClick={() => setActiveTab('home')}
               className={`relative py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
                 activeTab === 'home'
-                  ? 'text-[#1F1E1D] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D]'
-                  : 'text-[#7B7870] hover:text-[#1F1E1D]'
+                  ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#FAF9F6]'
+                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
               首頁 · OVERVIEW
@@ -91,8 +97,8 @@ export function Navbar({
               onClick={() => setActiveTab('trips')}
               className={`relative py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
                 activeTab === 'trips' || activeTab === 'trip-detail'
-                  ? 'text-[#1F1E1D] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D]'
-                  : 'text-[#7B7870] hover:text-[#1F1E1D]'
+                  ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#FAF9F6]'
+                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
               旅行紀錄 · ARCHIVE ({trips.length})
@@ -103,8 +109,8 @@ export function Navbar({
               onClick={() => setActiveTab('gallery')}
               className={`relative py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
                 activeTab === 'gallery'
-                  ? 'text-[#1F1E1D] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D]'
-                  : 'text-[#7B7870] hover:text-[#1F1E1D]'
+                  ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#FAF9F6]'
+                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
               攝影集 · GALLERY
@@ -115,11 +121,24 @@ export function Navbar({
               onClick={() => setActiveTab('map')}
               className={`relative py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
                 activeTab === 'map'
-                  ? 'text-[#1F1E1D] dark:text-[#E8E5DE] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#E8E5DE]'
-                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D]'
+                  ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#FAF9F6]'
+                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
               足跡地圖 · MAP
+            </button>
+
+            <button
+              id="nav-tab-orders"
+              onClick={() => setActiveTab('orders')}
+              className={`relative py-2 text-xs uppercase tracking-[0.18em] transition-colors flex items-center gap-1.5 ${
+                activeTab === 'orders'
+                  ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#FAF9F6]'
+                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
+              }`}
+            >
+              <Package className="w-3.5 h-3.5 text-[#9A8060]" />
+              <span>訂單專區 · ORDERS</span>
             </button>
 
             <button
@@ -127,79 +146,74 @@ export function Navbar({
               onClick={() => setActiveTab('faq')}
               className={`relative py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
                 activeTab === 'faq'
-                  ? 'text-[#1F1E1D] dark:text-[#E8E5DE] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#E8E5DE]'
-                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D]'
+                  ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-[#1F1E1D] dark:after:bg-[#FAF9F6]'
+                  : 'text-[#7B7870] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
               常見問答 · FAQ
             </button>
           </nav>
 
-          {/* Right Actions: Minimal Search, Share & Add Trip */}
-          <div className="flex items-center gap-3">
+          {/* Right Actions: Search, Theme, Share & User Email / Logout */}
+          <div className="flex items-center gap-2.5">
             {/* Search Input */}
-            <div className="relative hidden lg:block w-44 xl:w-56">
+            <div className="relative hidden xl:block w-40">
               <Search className="w-3.5 h-3.5 text-[#9C998F] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="搜尋旅行、地點..."
+                placeholder="搜尋旅行..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setShowSearchDropdown(true)}
                 onBlur={() => setTimeout(() => setShowSearchDropdown(false), 250)}
-                className="w-full bg-[#F4F2EC] text-xs text-[#1F1E1D] placeholder-[#9C998F] pl-8 pr-3 py-1.5 rounded-sm border border-transparent focus:border-[#ABA79C] focus:bg-white focus:outline-none transition"
+                className="w-full bg-[#F4F2EC] dark:bg-[#262624] text-xs text-[#1F1E1D] dark:text-[#FAF9F6] placeholder-[#9C998F] pl-8 pr-3 py-1.5 rounded-sm border border-transparent focus:border-[#ABA79C] focus:bg-white dark:focus:bg-[#1A1A18] focus:outline-none transition"
               />
 
               {/* Quick Search Dropdown */}
               {showSearchDropdown && searchQuery.trim() && (
-                <div className="absolute top-full mt-2 w-72 right-0 bg-[#FAF9F6] border border-[#E0DDD5] rounded-sm shadow-xl p-2 z-50">
+                <div className="absolute top-full mt-2 w-72 right-0 bg-[#FAF9F6] dark:bg-[#20201E] border border-[#E0DDD5] dark:border-[#393733] rounded-sm shadow-xl p-2 z-50">
                   <div className="text-[10px] tracking-wider uppercase text-[#88857E] px-2 py-1">
                     搜尋結果 ({matchedTrips.length})
                   </div>
-                  {matchedTrips.length === 0 ? (
-                    <div className="p-3 text-xs text-[#88857E] text-center font-light">無符合旅行紀錄</div>
-                  ) : (
-                    <div className="space-y-1 max-h-60 overflow-y-auto">
+                  {matchedTrips.length > 0 ? (
+                    <div className="max-h-60 overflow-y-auto space-y-1 mt-1">
                       {matchedTrips.map((t) => (
-                        <button
+                        <div
                           key={t.id}
-                          onClick={() => {
+                          onMouseDown={() => {
                             onSelectTrip(t);
-                            setShowSearchDropdown(false);
+                            setActiveTab('trip-detail');
                             setSearchQuery('');
                           }}
-                          className="w-full text-left p-2 rounded-sm hover:bg-[#F2EFE9] flex items-center gap-2.5 transition"
+                          className="flex items-center gap-2 p-2 hover:bg-[#EFECE4] dark:hover:bg-[#2A2A27] rounded-xs cursor-pointer text-xs transition"
                         >
-                          <img
-                            src={t.coverImage}
-                            alt={t.title}
-                            className="w-8 h-8 rounded-xs object-cover shrink-0 grayscale-[20%]"
-                          />
+                          <span className="text-base">{t.flag}</span>
                           <div className="min-w-0 flex-1">
-                            <div className="text-xs font-serif text-[#1F1E1D] truncate">
-                              {t.title}
-                            </div>
-                            <div className="text-[10px] text-[#88857E] truncate font-sans">
-                              {t.destination} · {t.daysCount} 天
-                            </div>
+                            <p className="font-medium text-[#1F1E1D] dark:text-[#FAF9F6] truncate">{t.title}</p>
+                            <p className="text-[10px] text-[#88857E]">{t.destination}</p>
                           </div>
-                        </button>
+                        </div>
                       ))}
+                    </div>
+                  ) : (
+                    <div className="p-3 text-xs text-[#88857E] text-center font-serif">
+                      找不到與「{searchQuery}」相關的旅行
                     </div>
                   )}
                 </div>
               )}
             </div>
 
-            {/* Theme Toggle Button */}
+            {/* Dark Mode Toggle */}
             <button
+              id="btn-dark-mode-toggle"
               onClick={toggleDarkMode}
               onDoubleClick={resetToSystemTheme}
               className="p-2 rounded-sm border border-[#DCD9D0] dark:border-[#393733] hover:bg-[#F0EEE6] dark:hover:bg-[#2A2A27] text-[#383633] dark:text-[#E8E5DE] transition-colors relative group"
               title={
                 isFollowingSystem
-                  ? `目前跟隨裝置預設 (${isDarkMode ? '深色' : '淺色'})。點擊切換手動模式，雙擊重設`
-                  : `目前為手動設定 (${isDarkMode ? '深色' : '淺色'})。點擊切換，雙擊恢復跟隨裝置`
+                  ? `目前跟隨裝置預設 (${isDarkMode ? '深色' : '淺色'})。點擊切換手動模式`
+                  : `目前為手動設定 (${isDarkMode ? '深色' : '淺色'})。點擊切換`
               }
             >
               {isDarkMode ? <Sun className="w-4 h-4 text-[#B39A73]" /> : <Moon className="w-4 h-4 text-[#9A8060]" />}
@@ -223,26 +237,63 @@ export function Navbar({
               )}
             </button>
 
+            {/* Member Account / Login / Logout Display */}
+            {currentMember ? (
+              <div className="flex items-center gap-1.5 bg-[#F5F3EC] dark:bg-[#262624] border border-[#D5D2C8] dark:border-[#393733] p-1 pr-1.5 rounded-sm shadow-2xs">
+                <button
+                  id="btn-member-profile"
+                  onClick={onOpenMemberModal}
+                  className="flex items-center gap-1.5 px-1.5 py-1 text-[#2C2A29] dark:text-[#E8E5DE] text-xs hover:text-[#9A8060] transition group max-w-[140px] sm:max-w-[180px]"
+                  title={`會員信箱：${currentMember.email}（點擊查看會員中心）`}
+                >
+                  <UserCheck className="w-3.5 h-3.5 text-[#9A8060] shrink-0" />
+                  <span className="font-mono text-[11px] sm:text-xs truncate">{currentMember.email}</span>
+                </button>
+
+                <div className="w-[1px] h-3.5 bg-[#D5D2C8] dark:bg-[#444]" />
+
+                <button
+                  id="btn-member-logout"
+                  onClick={onLogoutMember}
+                  className="p-1 text-[#88857E] hover:text-red-600 dark:hover:text-red-400 transition"
+                  title="登出目前帳號"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                id="btn-member-login"
+                onClick={onOpenMemberModal}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm border border-[#D5D2C8] dark:border-[#393733] bg-[#FAF9F6] dark:bg-[#20201E] hover:bg-[#F0EEE6] dark:hover:bg-[#2A2A27] text-[#383633] dark:text-[#E8E5DE] text-xs transition shadow-2xs font-sans font-medium"
+                title="以 Email 註冊或登入 Supabase 帳號"
+              >
+                <User className="w-3.5 h-3.5 text-[#9A8060] dark:text-[#B39A73]" />
+                <span className="hidden sm:inline">登入 / 註冊</span>
+                <span className="sm:hidden">登入</span>
+              </button>
+            )}
+
             {/* Author Mode Indicator & Actions */}
             {isAuthorMode ? (
               <div className="flex items-center gap-2">
                 <button
                   id="btn-author-indicator"
                   onClick={onOpenAuthorModal}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#EAE7DF] hover:bg-[#DFDBD0] text-[#2C2A29] text-[11px] uppercase tracking-wider rounded-sm transition font-sans border border-[#D5D2C8]"
+                  className="flex items-center gap-1.5 px-2 py-1.5 bg-[#EAE7DF] dark:bg-[#2A2A27] hover:bg-[#DFDBD0] text-[#2C2A29] dark:text-[#FAF9F6] text-[11px] uppercase tracking-wider rounded-sm transition font-sans border border-[#D5D2C8] dark:border-[#393733]"
                   title="點擊管理創作者狀態"
                 >
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 stroke-[2]" />
-                  <span className="hidden md:inline font-medium">創作者模式</span>
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400 stroke-[2]" />
+                  <span className="hidden lg:inline font-medium">創作者模式</span>
                 </button>
 
                 <button
                   id="btn-create-trip"
                   onClick={onOpenCreate}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#232120] hover:bg-[#383633] text-[#FAF9F6] text-xs tracking-widest uppercase rounded-sm transition shadow-sm font-sans"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#232120] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] dark:text-[#171716] text-[#FAF9F6] text-xs tracking-widest uppercase rounded-sm transition shadow-sm font-sans"
                 >
                   <Plus className="w-3.5 h-3.5 stroke-[2]" />
-                  <span>新增旅行</span>
+                  <span className="hidden sm:inline">新增旅行</span>
                 </button>
               </div>
             ) : null}
@@ -250,45 +301,53 @@ export function Navbar({
         </div>
 
         {/* Mobile Navigation Strip */}
-        <div className="flex md:hidden items-center justify-around py-2.5 border-t border-[#EAE7DF] text-[11px] uppercase tracking-wider font-sans">
+        <div className="flex md:hidden items-center justify-around py-2.5 border-t border-[#EAE7DF] dark:border-[#333330] text-[11px] uppercase tracking-wider font-sans overflow-x-auto gap-1">
           <button
             onClick={() => setActiveTab('home')}
-            className={`py-1 px-2 ${
-              activeTab === 'home' ? 'text-[#1F1E1D] font-bold border-b border-[#1F1E1D]' : 'text-[#7B7870]'
+            className={`py-1 px-2 shrink-0 ${
+              activeTab === 'home' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
             首頁
           </button>
           <button
             onClick={() => setActiveTab('trips')}
-            className={`py-1 px-2 ${
+            className={`py-1 px-2 shrink-0 ${
               activeTab === 'trips' || activeTab === 'trip-detail'
-                ? 'text-[#1F1E1D] font-bold border-b border-[#1F1E1D]'
-                : 'text-[#7B7870]'
+                ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]'
+                : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
             紀錄 ({trips.length})
           </button>
           <button
             onClick={() => setActiveTab('gallery')}
-            className={`py-1 px-2 ${
-              activeTab === 'gallery' ? 'text-[#1F1E1D] font-bold border-b border-[#1F1E1D]' : 'text-[#7B7870]'
+            className={`py-1 px-2 shrink-0 ${
+              activeTab === 'gallery' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
             相簿
           </button>
           <button
             onClick={() => setActiveTab('map')}
-            className={`py-1 px-2 ${
-              activeTab === 'map' ? 'text-[#1F1E1D] dark:text-[#E8E5DE] font-bold border-b border-[#1F1E1D] dark:border-[#E8E5DE]' : 'text-[#7B7870] dark:text-[#A8A49B]'
+            className={`py-1 px-2 shrink-0 ${
+              activeTab === 'map' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
             地圖
           </button>
           <button
+            onClick={() => setActiveTab('orders')}
+            className={`py-1 px-2 shrink-0 ${
+              activeTab === 'orders' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
+            }`}
+          >
+            訂單
+          </button>
+          <button
             onClick={() => setActiveTab('faq')}
-            className={`py-1 px-2 ${
-              activeTab === 'faq' ? 'text-[#1F1E1D] dark:text-[#E8E5DE] font-bold border-b border-[#1F1E1D] dark:border-[#E8E5DE]' : 'text-[#7B7870] dark:text-[#A8A49B]'
+            className={`py-1 px-2 shrink-0 ${
+              activeTab === 'faq' ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-bold border-b border-[#1F1E1D] dark:border-[#FAF9F6]' : 'text-[#7B7870] dark:text-[#A8A49B]'
             }`}
           >
             常見問答

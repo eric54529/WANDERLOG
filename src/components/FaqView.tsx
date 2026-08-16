@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { HelpCircle, ChevronDown, ChevronUp, Search, Compass, MessageSquare, ArrowRight } from 'lucide-react';
+import { HelpCircle, ChevronDown, ChevronUp, Search, Compass, MessageSquare, ArrowRight, Lock, UserPlus, Sparkles, User, CheckCircle2 } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
+import { MemberUser } from '../types';
 
 interface FaqItem {
   id: string;
@@ -30,18 +31,63 @@ const FAQ_DATA: FaqItem[] = [
   }
 ];
 
-function ContactFormspreeSection() {
+interface ContactFormspreeSectionProps {
+  currentMember: MemberUser | null;
+  onOpenMemberModal: () => void;
+}
+
+function ContactFormspreeSection({ currentMember, onOpenMemberModal }: ContactFormspreeSectionProps) {
   const [state, handleSubmit] = useForm('xaewddwz');
 
+  // If user is not a logged in member, hide the form and show member invitation gate
+  if (!currentMember) {
+    return (
+      <div className="bg-white dark:bg-[#20201E] border border-[#EAE7DF] dark:border-[#393733] p-6 sm:p-8 rounded-sm shadow-xs mb-12 relative overflow-hidden">
+        <div className="max-w-xl mx-auto text-center space-y-4 py-3">
+          <div className="w-12 h-12 rounded-full bg-[#9A8060]/10 dark:bg-[#9A8060]/20 text-[#9A8060] flex items-center justify-center mx-auto border border-[#9A8060]/20">
+            <Lock className="w-5 h-5 stroke-[1.75]" />
+          </div>
+          
+          <div className="space-y-1.5">
+            <span className="text-[11px] uppercase tracking-widest text-[#9A8060] font-mono font-medium block">
+              Members Exclusive · 會員專屬提問功能
+            </span>
+            <h3 className="font-serif text-xl sm:text-2xl text-[#1F1E1D] dark:text-[#E8E5DE]">
+              線上問答與意見回饋表單
+            </h3>
+            <p className="text-xs sm:text-sm text-[#77736C] dark:text-[#A8A49B] leading-relaxed max-w-md mx-auto">
+              為維護交流品質，線上諮詢與意見回饋表單目前<strong>僅開放給 WANDERLOG 註冊會員使用</strong>。一般瀏覽視角已為您隱藏表單。
+            </p>
+          </div>
+
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button
+              onClick={onOpenMemberModal}
+              className="w-full sm:w-auto px-6 py-2.5 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#E8E5DE] dark:hover:bg-[#D4D1C9] dark:text-[#171716] text-[#FAF9F6] text-xs uppercase tracking-widest rounded-sm transition font-sans font-medium flex items-center justify-center gap-2 shadow-sm"
+            >
+              <UserPlus className="w-4 h-4" />
+              <span>免費註冊 / 登入會員解鎖表單</span>
+            </button>
+          </div>
+
+          <p className="text-[11px] text-[#A39F95] dark:text-[#7A776F] pt-1">
+            ✨ 加入會員即可與作者交流提問、收藏旅行足跡
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Member is logged in: Show form
   if (state.succeeded) {
     return (
-      <div className="bg-white dark:bg-[#20201E] border border-[#EAE7DF] dark:border-[#393733] p-8 text-center rounded-sm shadow-xs">
+      <div className="bg-white dark:bg-[#20201E] border border-[#EAE7DF] dark:border-[#393733] p-8 text-center rounded-sm shadow-xs mb-12">
         <div className="w-12 h-12 rounded-full bg-[#9A8060]/15 text-[#9A8060] flex items-center justify-center mx-auto mb-4">
           <MessageSquare className="w-6 h-6" />
         </div>
         <h3 className="font-serif text-xl text-[#1F1E1D] dark:text-[#E8E5DE] mb-2">感謝您的回饋與留言！</h3>
         <p className="text-xs sm:text-sm text-[#77736C] dark:text-[#A8A49B]">
-          我們已經收到您的表單訊息，將會盡快回覆您或參考您的寶貴意見。
+          親愛的會員 <strong>{currentMember.name}</strong>，我們已經收到您的表單訊息，將會盡快透過信箱與您聯繫。
         </p>
       </div>
     );
@@ -49,12 +95,23 @@ function ContactFormspreeSection() {
 
   return (
     <div className="bg-white dark:bg-[#20201E] border border-[#EAE7DF] dark:border-[#393733] p-6 sm:p-8 rounded-sm shadow-xs mb-12">
-      <div className="mb-6">
-        <span className="text-xs uppercase tracking-widest text-[#9A8060] font-mono mb-1 block">Contact & Feedback Form</span>
-        <h3 className="font-serif text-xl text-[#1F1E1D] dark:text-[#E8E5DE]">線上意見回饋與聯絡表單</h3>
-        <p className="text-xs text-[#77736C] dark:text-[#A8A49B] mt-1">
-          如果您對 WANDERLOG 有任何建議、問題或合作洽詢，歡迎填寫以下表單與我們聯繫。
-        </p>
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#EAE7DF] dark:border-[#393733]">
+        <div>
+          <span className="text-xs uppercase tracking-widest text-[#9A8060] font-mono mb-1 block">Contact & Feedback Form</span>
+          <h3 className="font-serif text-xl text-[#1F1E1D] dark:text-[#E8E5DE]">線上意見回饋與聯絡表單</h3>
+          <p className="text-xs text-[#77736C] dark:text-[#A8A49B] mt-1">
+            如果您對 WANDERLOG 有任何建議、問題或合作洽詢，歡迎填寫以下表單與我們聯繫。
+          </p>
+        </div>
+        
+        {/* Verified Member Badge */}
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-[#F5F3EC] dark:bg-[#2A2A27] rounded-sm border border-[#E0DDD5] dark:border-[#393733] shrink-0">
+          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+          <div className="text-[11px] font-sans">
+            <span className="text-[#88857E]">已驗證會員：</span>
+            <span className="font-medium text-[#1F1E1D] dark:text-[#E8E5DE]">{currentMember.name}</span>
+          </div>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -67,6 +124,7 @@ function ContactFormspreeSection() {
               type="text"
               name="name"
               required
+              defaultValue={currentMember.name}
               placeholder="請輸入您的姓名"
               className="w-full bg-[#FAF9F6] dark:bg-[#171716] text-xs sm:text-sm text-[#1F1E1D] dark:text-[#E8E5DE] px-3.5 py-2.5 rounded-sm border border-[#E5E2D9] dark:border-[#393733] focus:outline-none focus:border-[#77736C] transition"
             />
@@ -81,6 +139,7 @@ function ContactFormspreeSection() {
               type="email"
               name="email"
               required
+              defaultValue={currentMember.email}
               placeholder="name@example.com"
               className="w-full bg-[#FAF9F6] dark:bg-[#171716] text-xs sm:text-sm text-[#1F1E1D] dark:text-[#E8E5DE] px-3.5 py-2.5 rounded-sm border border-[#E5E2D9] dark:border-[#393733] focus:outline-none focus:border-[#77736C] transition"
             />
@@ -137,9 +196,11 @@ function ContactFormspreeSection() {
 interface FaqViewProps {
   onNavigateHome: () => void;
   onOpenCreateModal: () => void;
+  currentMember: MemberUser | null;
+  onOpenMemberModal: () => void;
 }
 
-export function FaqView({ onNavigateHome, onOpenCreateModal }: FaqViewProps) {
+export function FaqView({ onNavigateHome, onOpenCreateModal, currentMember, onOpenMemberModal }: FaqViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<'all' | 'general' | 'features' | 'sharing' | 'account'>('all');
   const [openId, setOpenId] = useState<string | null>('1');
@@ -292,7 +353,7 @@ export function FaqView({ onNavigateHome, onOpenCreateModal }: FaqViewProps) {
       </div>
 
       {/* Formspree Contact / Feedback Form Section */}
-      <ContactFormspreeSection />
+      <ContactFormspreeSection currentMember={currentMember} onOpenMemberModal={onOpenMemberModal} />
 
       {/* Quick CTA Box */}
       <div className="bg-[#F5F3EC] dark:bg-[#20201E] border border-[#EAE7DF] dark:border-[#393733] text-[#1F1E1D] dark:text-[#FAF9F6] p-8 rounded-sm text-center relative overflow-hidden shadow-xs">

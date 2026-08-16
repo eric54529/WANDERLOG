@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ActiveTab, Trip, PhotoItem } from './types';
+import { ActiveTab, Trip, PhotoItem, MemberUser } from './types';
 import { 
   loadTrips, 
   saveTrip, 
@@ -11,6 +11,7 @@ import {
   loadCountryClicks,
   recordCountryClick
 } from './utils/storage';
+import { getCurrentMember, subscribeToAuthChanges, logoutMember } from './utils/memberAuth';
 import { getShareCounter, incrementShareCounter } from './utils/counterApi';
 import { Navbar } from './components/Navbar';
 import { HomeView } from './components/HomeView';
@@ -19,12 +20,14 @@ import { TripDetailView } from './components/TripDetailView';
 import { PhotoGalleryView } from './components/PhotoGalleryView';
 import { TravelMapView } from './components/TravelMapView';
 import { FaqView } from './components/FaqView';
+import { OrdersView } from './components/OrdersView';
 import { ShareModal } from './components/ShareModal';
 import { TripEditorModal } from './components/TripEditorModal';
 import { AuthorAuthModal } from './components/AuthorAuthModal';
+import { MemberAuthModal } from './components/MemberAuthModal';
 import { PhotoLightboxModal } from './components/PhotoLightboxModal';
 import { ConfirmModal } from './components/ConfirmModal';
-import { Compass, Sparkles, CheckCircle2, Lock, ShieldCheck, Eye, ArrowUp } from 'lucide-react';
+import { Compass, Sparkles, CheckCircle2, Lock, ShieldCheck, Eye, ArrowUp, User } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function App() {
@@ -32,6 +35,27 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
   const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
   const [tripDetailInitialSubTab, setTripDetailInitialSubTab] = useState<'story' | 'photos' | 'map'>('story');
+  
+  // Member Authentication state
+  const [currentMember, setCurrentMember] = useState<MemberUser | null>(getCurrentMember);
+  const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
+
+  // Subscribe to Supabase Auth State Changes
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthChanges((member) => {
+      setCurrentMember(member);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const handleMemberLogout = async () => {
+    await logoutMember();
+    setCurrentMember(null);
+    setSharedToast('已成功登出會員帳號');
+    setTimeout(() => setSharedToast(null), 3000);
+  };
   
   // Dark Mode state with system preference default and optional manual override
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -198,7 +222,7 @@ export default function App() {
   };
 
   // Tab Navigation with clean state and history
-  const handleNavigateTab = (tab: 'home' | 'trips' | 'gallery' | 'map' | 'trip-detail') => {
+  const handleNavigateTab = (tab: ActiveTab) => {
     setActiveTab(tab);
     if (tab === 'home') {
       setSelectedTrip(null);
@@ -367,6 +391,9 @@ export default function App() {
         toggleDarkMode={toggleDarkMode}
         isFollowingSystem={isFollowingSystem}
         resetToSystemTheme={resetToSystemTheme}
+        currentMember={currentMember}
+        onOpenMemberModal={() => setIsMemberModalOpen(true)}
+        onLogoutMember={handleMemberLogout}
       />
 
       {/* Author Mode Top Floating Bar if Active */}
@@ -492,6 +519,16 @@ export default function App() {
           <FaqView
             onNavigateHome={() => handleNavigateTab('home')}
             onOpenCreateModal={handleOpenCreate}
+            currentMember={currentMember}
+            onOpenMemberModal={() => setIsMemberModalOpen(true)}
+          />
+        )}
+
+        {activeTab === 'orders' && (
+          <OrdersView
+            currentMember={currentMember}
+            onOpenAuthModal={() => setIsMemberModalOpen(true)}
+            onNavigateHome={() => handleNavigateTab('home')}
           />
         )}
 
@@ -541,6 +578,15 @@ export default function App() {
         onClose={() => setIsAuthorAuthModalOpen(false)}
         isAuthorMode={isAuthorMode}
         onSetAuthorMode={handleSetAuthorMode}
+      />
+
+      {/* Member Authentication & Profile Modal */}
+      <MemberAuthModal
+        isOpen={isMemberModalOpen}
+        onClose={() => setIsMemberModalOpen(false)}
+        currentMember={currentMember}
+        onMemberChange={setCurrentMember}
+        onNavigateToOrders={() => handleNavigateTab('orders')}
       />
 
       {/* Reset Confirmation Modal */}
@@ -606,6 +652,15 @@ export default function App() {
               足跡地圖
             </button>
             <button
+              onClick={() => {
+                setActiveTab('orders');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="hover:text-[#FAF9F6] transition text-[#9A8060] dark:text-[#B39A73]"
+            >
+              訂單專區
+            </button>
+            <button
               onClick={() => handleOpenShare()}
               className="text-[#FAF9F6] hover:underline"
             >
@@ -613,8 +668,16 @@ export default function App() {
             </button>
           </div>
 
-          {/* Author Access Control */}
+          {/* Member & Author Access Control */}
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsMemberModalOpen(true)}
+              className="flex items-center gap-1.5 text-[#88857E] hover:text-[#FAF9F6] text-[11px] tracking-wider transition"
+            >
+              <User className="w-3.5 h-3.5 text-[#9A8060]" />
+              <span>{currentMember ? `會員：${currentMember.name}` : '會員專區 / 登入'}</span>
+            </button>
+
             <button
               onClick={() => setIsAuthorAuthModalOpen(true)}
               className="flex items-center gap-1.5 text-[#88857E] hover:text-[#FAF9F6] text-[11px] tracking-wider transition"
