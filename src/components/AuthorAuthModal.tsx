@@ -53,27 +53,27 @@ export function AuthorAuthModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-      <div className="bg-[#FAF9F6] border border-[#EAE7DF] w-full max-w-md p-6 sm:p-8 rounded-xs shadow-2xl space-y-6 text-[#242220] relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in font-sans">
+      <div className="bg-[#FAF9F6] dark:bg-[#1C1C1A] border border-[#EAE7DF] dark:border-[#2C2C29] w-full max-w-md p-6 sm:p-8 rounded-xs shadow-2xl space-y-6 text-[#242220] dark:text-[#E8E5DE] relative">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 text-[#88857E] hover:text-[#1F1E1D] transition"
+          className="absolute right-4 top-4 text-[#88857E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] transition"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Header */}
-        <div className="space-y-1.5 border-b border-[#EAE7DF] pb-4">
-          <div className="flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
-            <Lock className="w-3.5 h-3.5" />
+        <div className="space-y-1.5 border-b border-[#EAE7DF] dark:border-[#2C2C29] pb-4">
+          <div className="flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
+            <Lock className="w-3.5 h-3.5 text-[#9A8060] dark:text-[#C2A984]" />
             <span>AUTHOR & CURATION ACCESS</span>
           </div>
-          <h2 className="font-serif text-2xl text-[#1F1E1D]">
+          <h2 className="font-serif text-2xl text-[#1F1E1D] dark:text-[#FAF9F6]">
             創作者管理權限
           </h2>
-          <p className="text-xs text-[#78756E] font-light leading-relaxed">
+          <p className="text-xs text-[#78756E] dark:text-[#A8A49B] font-light leading-relaxed">
             為維護個人攝影集與遊記的純粹閱讀體驗，新增與編輯功能僅限作者本人使用。
           </p>
         </div>
@@ -81,19 +81,19 @@ export function AuthorAuthModal({
         {/* Status Indicator */}
         <div className={`p-4 rounded-xs border text-xs flex items-start gap-3 ${
           isAuthorMode 
-            ? 'bg-[#F2EFE8] border-[#D5D2C8] text-[#1F1E1D]' 
-            : 'bg-[#F7F5F0] border-[#E8E5DC] text-[#66635D]'
+            ? 'bg-[#F2EFE8] dark:bg-[#252522] border-[#D5D2C8] dark:border-[#383834] text-[#1F1E1D] dark:text-[#FAF9F6]' 
+            : 'bg-[#F7F5F0] dark:bg-[#222220] border-[#E8E5DC] dark:border-[#2C2C29] text-[#66635D] dark:text-[#A8A49B]'
         }`}>
           {isAuthorMode ? (
-            <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+            <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
           ) : (
-            <Lock className="w-4 h-4 text-[#88857E] shrink-0 mt-0.5" />
+            <Lock className="w-4 h-4 text-[#88857E] dark:text-[#9A968E] shrink-0 mt-0.5" />
           )}
           <div className="space-y-1">
-            <div className="font-medium flex items-center gap-2">
+            <div className="font-medium flex items-center gap-2 text-[#1F1E1D] dark:text-[#FAF9F6]">
               <span>當前狀態：{isAuthorMode ? '✍️ 創作者編輯模式（已啟用）' : '👁️ 訪客純粹瀏覽模式'}</span>
             </div>
-            <p className="text-[11px] text-[#78756E] font-light leading-relaxed">
+            <p className="text-[11px] text-[#78756E] dark:text-[#A8A49B] font-light leading-relaxed">
               {isAuthorMode
                 ? '您目前可以新增、編輯、刪除旅行遊記與上傳相片。'
                 : '前台介面已隱藏所有新增與編輯按鈕，呈現純淨的雜誌式攝影展覽。'}
@@ -103,14 +103,14 @@ export function AuthorAuthModal({
 
         {/* Feedback Alert */}
         {errorMsg && (
-          <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xs">
+          <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-700 dark:text-red-300 text-xs rounded-xs">
             {errorMsg}
           </div>
         )}
 
         {successMsg && (
-          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xs flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+          <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 text-emerald-800 dark:text-emerald-300 text-xs rounded-xs flex items-center gap-2">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span>{successMsg}</span>
           </div>
         )}
@@ -120,14 +120,14 @@ export function AuthorAuthModal({
           <div className="space-y-3 pt-2">
             <button
               onClick={handleLock}
-              className="w-full py-3 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] text-xs uppercase tracking-[0.18em] rounded-xs transition shadow-sm font-sans flex items-center justify-center gap-2"
+              className="w-full py-3 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-xs uppercase tracking-[0.18em] rounded-xs transition shadow-sm font-sans flex items-center justify-center gap-2 font-medium"
             >
               <Eye className="w-3.5 h-3.5" />
               <span>切換回訪客純淨瀏覽模式</span>
             </button>
             <button
               onClick={onClose}
-              className="w-full py-2.5 border border-[#D5D2C8] hover:border-[#1F1E1D] text-[#55524C] text-xs uppercase tracking-wider rounded-xs transition"
+              className="w-full py-2.5 border border-[#D5D2C8] dark:border-[#383834] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] text-[#55524C] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] text-xs uppercase tracking-wider rounded-xs transition"
             >
               保持創作者身分並關閉
             </button>
@@ -135,7 +135,7 @@ export function AuthorAuthModal({
         ) : (
           <form onSubmit={handleUnlock} className="space-y-4 pt-1">
             <div>
-              <label className="text-[10px] tracking-[0.15em] uppercase text-[#78756E] block mb-1.5 font-medium">
+              <label className="text-[10px] tracking-[0.15em] uppercase text-[#78756E] dark:text-[#9A968E] block mb-1.5 font-medium">
                 輸入作者通行密碼：
               </label>
               <div className="relative">
@@ -148,26 +148,26 @@ export function AuthorAuthModal({
                     setPassword(e.target.value);
                     setErrorMsg('');
                   }}
-                  className="w-full bg-[#F4F2EB] text-xs text-[#1F1E1D] placeholder-[#9C998F] pl-8 pr-10 py-2.5 rounded-xs border border-[#D5D2C8] focus:border-[#1F1E1D] focus:bg-white focus:outline-none transition"
+                  className="w-full bg-[#F4F2EB] dark:bg-[#232320] text-xs text-[#1F1E1D] dark:text-[#FAF9F6] placeholder-[#9C998F] pl-8 pr-10 py-2.5 rounded-xs border border-[#D5D2C8] dark:border-[#2C2C29] focus:border-[#1F1E1D] dark:focus:border-[#9A8060] focus:bg-white dark:focus:bg-[#1A1A18] focus:outline-none transition"
                   autoFocus
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#88857E] hover:text-[#1F1E1D]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#88857E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]"
                 >
                   {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                 </button>
               </div>
-              <p className="text-[10px] text-[#9C998F] mt-1 font-light">
-                * 系統預設作者密鑰為 <code className="bg-[#EAE7DF] px-1 py-0.5 text-[#1F1E1D] font-mono">admin</code>
+              <p className="text-[10px] text-[#9C998F] dark:text-[#88857E] mt-1 font-light">
+                * 系統預設作者密鑰為 <code className="bg-[#EAE7DF] dark:bg-[#282825] px-1 py-0.5 text-[#1F1E1D] dark:text-[#FAF9F6] font-mono">admin</code>
               </p>
             </div>
 
             <div className="flex items-center gap-3 pt-2">
               <button
                 type="submit"
-                className="flex-1 py-3 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] text-xs uppercase tracking-[0.18em] rounded-xs transition shadow-sm font-sans flex items-center justify-center gap-2"
+                className="flex-1 py-3 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-xs uppercase tracking-[0.18em] rounded-xs transition shadow-sm font-sans flex items-center justify-center gap-2 font-medium"
               >
                 <Unlock className="w-3.5 h-3.5" />
                 <span>解鎖創作者模式</span>
@@ -176,7 +176,7 @@ export function AuthorAuthModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-3 border border-[#D5D2C8] hover:border-[#1F1E1D] text-[#55524C] text-xs uppercase tracking-wider rounded-xs transition"
+                className="px-4 py-3 border border-[#D5D2C8] dark:border-[#383834] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] text-[#55524C] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] text-xs uppercase tracking-wider rounded-xs transition"
               >
                 取消
               </button>

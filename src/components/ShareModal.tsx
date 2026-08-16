@@ -129,24 +129,24 @@ export function ShareModal({
       }}
     >
       <div 
-        className="bg-[#FAF9F6] border border-[#D5D2C8] max-w-lg w-full shadow-2xl overflow-hidden my-6"
+        className="bg-[#FAF9F6] dark:bg-[#1C1C1A] border border-[#D5D2C8] dark:border-[#2C2C29] max-w-lg w-full shadow-2xl overflow-hidden my-6 rounded-xs"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Modal Header */}
-        <div className="p-6 pb-4 border-b border-[#EAE7DF] flex items-center justify-between">
+        <div className="p-6 pb-4 border-b border-[#EAE7DF] dark:border-[#2C2C29] flex items-center justify-between">
           <div>
-            <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
+            <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
               SHARE TRAVEL MONOGRAPH
             </span>
-            <h2 className="font-serif text-xl text-[#1F1E1D] mt-0.5">
+            <h2 className="font-serif text-xl text-[#1F1E1D] dark:text-[#FAF9F6] mt-0.5">
               分享旅行專屬網址
             </h2>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 text-[#88857E] hover:text-[#1F1E1D] transition"
+            className="p-1.5 text-[#88857E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] transition"
             title="關閉 (Esc)"
           >
             <X className="w-5 h-5" />
@@ -154,35 +154,35 @@ export function ShareModal({
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 space-y-6 text-[#242220] text-xs">
+        <div className="p-6 space-y-6 text-[#242220] dark:text-[#E8E5DE] text-xs">
           
           {/* CounterAPI Live Stat Bar */}
-          <div className="flex items-center justify-between p-2.5 bg-[#F0EDE5] border border-[#E0DDD5] rounded-xs">
+          <div className="flex items-center justify-between p-2.5 bg-[#F0EDE5] dark:bg-[#252522] border border-[#E0DDD5] dark:border-[#2C2C29] rounded-xs">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-              <span className="text-[11px] text-[#4A4742]">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse" />
+              <span className="text-[11px] text-[#4A4742] dark:text-[#C5C2BA]">
                 CounterAPI 累計分享次數：
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-semibold text-[#1F1E1D] bg-white px-2 py-0.5 border border-[#D5D2C8] rounded-xs">
+              <span className="font-mono text-xs font-semibold text-[#1F1E1D] dark:text-[#FAF9F6] bg-white dark:bg-[#1C1C1A] px-2 py-0.5 border border-[#D5D2C8] dark:border-[#383834] rounded-xs">
                 {liveCount} 次
               </span>
               {isSyncing && (
-                <span className="text-[10px] text-[#88857E] font-sans">同步中...</span>
+                <span className="text-[10px] text-[#88857E] dark:text-[#9A968E] font-sans">同步中...</span>
               )}
             </div>
           </div>
 
           {/* Trip Selector */}
           <div>
-            <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1.5 font-sans">
+            <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1.5 font-sans">
               選擇要分享的旅行篇章：
             </label>
             <select
               value={currentTripId}
               onChange={(e) => setCurrentTripId(e.target.value)}
-              className="w-full bg-white border border-[#D5D2C8] p-2.5 text-xs text-[#1F1E1D] focus:outline-none"
+              className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] p-2.5 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] focus:outline-none rounded-xs"
             >
               {trips.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -194,23 +194,23 @@ export function ShareModal({
 
           {/* Current Trip Preview Strip */}
           {currentTrip && (
-            <div className="p-3 bg-[#F4F2EB] border border-[#EAE7DF] flex items-center gap-4">
+            <div className="p-3 bg-[#F4F2EB] dark:bg-[#232320] border border-[#EAE7DF] dark:border-[#2C2C29] flex items-center gap-4 rounded-xs">
               <img
                 src={currentTrip.coverImage}
                 alt={currentTrip.title}
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1543731068-7e0f5beff43a?auto=format&fit=crop&w=800&q=80';
                 }}
-                className="w-16 h-16 object-cover grayscale-[15%]"
+                className="w-16 h-16 object-cover grayscale-[15%] rounded-xs"
               />
               <div className="min-w-0 flex-1 space-y-0.5">
-                <div className="text-[10px] tracking-wider uppercase text-[#88857E]">
+                <div className="text-[10px] tracking-wider uppercase text-[#88857E] dark:text-[#9A968E]">
                   {currentTrip.country} · {currentTrip.destination}
                 </div>
-                <h4 className="font-serif text-xs text-[#1F1E1D] truncate font-medium">
+                <h4 className="font-serif text-xs text-[#1F1E1D] dark:text-[#FAF9F6] truncate font-medium">
                   {currentTrip.title}
                 </h4>
-                <div className="text-[10px] text-[#78756E]">
+                <div className="text-[10px] text-[#78756E] dark:text-[#A8A49B]">
                   {currentTrip.photos.length} 張照片 · {currentTrip.places.length} 處足跡
                 </div>
               </div>
@@ -219,20 +219,20 @@ export function ShareModal({
 
           {/* Copy Link Input */}
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase tracking-wider text-[#78756E] block">
+            <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block">
               專屬分享連結：
             </label>
-            <div className="flex items-center gap-2 bg-white border border-[#D5D2C8] p-1.5">
+            <div className="flex items-center gap-2 bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] p-1.5 rounded-xs">
               <input
                 type="text"
                 readOnly
                 value={shareUrl}
-                className="flex-1 bg-transparent text-xs text-[#1F1E1D] px-2 focus:outline-none font-mono truncate"
+                className="flex-1 bg-transparent text-xs text-[#1F1E1D] dark:text-[#FAF9F6] px-2 focus:outline-none font-mono truncate"
               />
               <button
                 id="btn-copy-share-url"
                 onClick={handleCopyLink}
-                className="px-4 py-2 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] text-xs tracking-wider uppercase transition font-medium shrink-0 flex items-center gap-1.5"
+                className="px-4 py-2 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-xs tracking-wider uppercase transition font-medium shrink-0 flex items-center gap-1.5 rounded-xs"
               >
                 {copied ? (
                   <>
@@ -250,8 +250,8 @@ export function ShareModal({
           </div>
 
           {/* QR Code & Direct Channels */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center bg-[#F4F2EB] p-4 border border-[#EAE7DF]">
-            <div className="flex flex-col items-center justify-center p-3 bg-white border border-[#E0DDD5] text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center bg-[#F4F2EB] dark:bg-[#232320] p-4 border border-[#EAE7DF] dark:border-[#2C2C29] rounded-xs">
+            <div className="flex flex-col items-center justify-center p-3 bg-white dark:bg-[#FAF9F6] border border-[#E0DDD5] dark:border-[#383834] text-center rounded-xs">
               <img
                 src={qrCodeUrl}
                 alt="QR Code"
@@ -263,13 +263,13 @@ export function ShareModal({
             </div>
 
             <div className="space-y-2">
-              <div className="text-[10px] tracking-wider uppercase text-[#78756E] mb-2 font-sans">
+              <div className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] mb-2 font-sans">
                 快速傳送給好友：
               </div>
               
               <button
                 onClick={handleLineShare}
-                className="w-full py-2 px-3 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-medium flex items-center justify-center gap-2 transition"
+                className="w-full py-2 px-3 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-medium flex items-center justify-center gap-2 transition rounded-xs"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>傳送至 LINE 好友 / 群組</span>
@@ -277,27 +277,27 @@ export function ShareModal({
 
               <button
                 onClick={handleFacebookShare}
-                className="w-full py-2 px-3 bg-[#1877F2] hover:bg-[#166fe5] text-white text-xs font-medium flex items-center justify-center gap-2 transition"
+                className="w-full py-2 px-3 bg-[#1877F2] hover:bg-[#166fe5] text-white text-xs font-medium flex items-center justify-center gap-2 transition rounded-xs"
               >
                 <span>分享至 Facebook</span>
               </button>
 
               <button
                 onClick={handleEmailShare}
-                className="w-full py-2 px-3 bg-white border border-[#D5D2C8] hover:border-[#1F1E1D] text-[#33302D] text-xs font-medium flex items-center justify-center gap-2 transition"
+                className="w-full py-2 px-3 bg-white dark:bg-[#1C1C1A] border border-[#D5D2C8] dark:border-[#383834] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] text-[#33302D] dark:text-[#FAF9F6] text-xs font-medium flex items-center justify-center gap-2 transition rounded-xs"
               >
-                <Mail className="w-3.5 h-3.5 text-[#78756E]" />
+                <Mail className="w-3.5 h-3.5 text-[#78756E] dark:text-[#9A968E]" />
                 <span>以 Email 傳送</span>
               </button>
             </div>
           </div>
 
           {/* Export JSON Backup */}
-          <div className="pt-2 border-t border-[#EAE7DF] flex items-center justify-between text-[11px] text-[#88857E]">
+          <div className="pt-2 border-t border-[#EAE7DF] dark:border-[#2C2C29] flex items-center justify-between text-[11px] text-[#88857E] dark:text-[#9A968E]">
             <span>備份與保存：</span>
             <button
               onClick={() => exportTripsAsJSON(trips)}
-              className="flex items-center gap-1 text-[#1F1E1D] hover:underline"
+              className="flex items-center gap-1 text-[#1F1E1D] dark:text-[#FAF9F6] hover:underline"
             >
               <Download className="w-3.5 h-3.5" />
               <span>匯出全站旅行資料 (JSON)</span>
@@ -305,14 +305,14 @@ export function ShareModal({
           </div>
 
           {/* Modal Action Footer */}
-          <div className="pt-3 border-t border-[#EAE7DF] flex items-center justify-between gap-3">
+          <div className="pt-3 border-t border-[#EAE7DF] dark:border-[#2C2C29] flex items-center justify-between gap-3">
             {onGoHome && (
               <button
                 onClick={() => {
                   onClose();
                   onGoHome();
                 }}
-                className="flex items-center gap-1.5 px-3 py-2 bg-[#F0EDE5] hover:bg-[#E4E0D6] text-[#2C2A28] rounded-xs text-xs font-medium transition"
+                className="flex items-center gap-1.5 px-3 py-2 bg-[#F0EDE5] dark:bg-[#2A2A27] hover:bg-[#E4E0D6] dark:hover:bg-[#343430] text-[#2C2A28] dark:text-[#FAF9F6] rounded-xs text-xs font-medium transition"
               >
                 <Home className="w-3.5 h-3.5" />
                 <span>返回首頁</span>
@@ -320,7 +320,7 @@ export function ShareModal({
             )}
             <button
               onClick={onClose}
-              className="ml-auto px-5 py-2 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] rounded-xs text-xs tracking-wider uppercase transition font-medium"
+              className="ml-auto px-5 py-2 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] rounded-xs text-xs tracking-wider uppercase transition font-medium"
             >
               完成並關閉
             </button>

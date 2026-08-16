@@ -87,18 +87,18 @@ export function HomeView({
   };
 
   return (
-    <div className="space-y-20 pb-24 text-[#242220]">
+    <div className="space-y-20 pb-24 text-[#242220] dark:text-[#E8E5DE]">
       
       {/* 1. HERO SECTION: Fine Art Magazine Cover Feature */}
       {featuredTrip && (
         <section className="relative group">
           {/* Subtle Top Index Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#EAE7DF] text-xs font-sans">
-            <div className="flex items-center gap-3 text-[#78756E] tracking-[0.2em] uppercase text-[11px]">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#EAE7DF] dark:border-[#2C2C29] text-xs font-sans">
+            <div className="flex items-center gap-3 text-[#78756E] dark:text-[#A8A49B] tracking-[0.2em] uppercase text-[11px]">
               <span>FEATURED VOLUME</span>
               <span>—</span>
-              <span className="text-[#1F1E1D] font-medium font-serif italic text-sm">{featuredTrip.destination}</span>
-              <span className="text-xs font-mono text-[#99958E] ml-2">({featuredIndex + 1} / {bannerTrips.length})</span>
+              <span className="text-[#1F1E1D] dark:text-[#FAF9F6] font-medium font-serif italic text-sm">{featuredTrip.destination}</span>
+              <span className="text-xs font-mono text-[#99958E] dark:text-[#88857E] ml-2">({featuredIndex + 1} / {bannerTrips.length})</span>
             </div>
 
             {/* Quick Trip Switcher Tabs & Arrows */}
@@ -110,8 +110,8 @@ export function HomeView({
                     onClick={() => setFeaturedIndex(idx)}
                     className={`px-3 py-1 text-[11px] uppercase tracking-wider transition-all rounded-xs ${
                       featuredIndex === idx
-                        ? 'bg-[#1F1E1D] text-[#FAF9F6] font-medium'
-                        : 'text-[#88857E] hover:text-[#1F1E1D] hover:bg-[#F2EFE8]'
+                        ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                        : 'text-[#88857E] dark:text-[#9A968E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] hover:bg-[#F2EFE8] dark:hover:bg-[#262623]'
                     }`}
                   >
                     {String(idx + 1).padStart(2, '0')} · {t.country}
@@ -119,17 +119,17 @@ export function HomeView({
                 ))}
               </div>
 
-              <div className="flex items-center gap-1 border-l border-[#EAE7DF] pl-2">
+              <div className="flex items-center gap-1 border-l border-[#EAE7DF] dark:border-[#2C2C29] pl-2">
                 <button
                   onClick={() => setFeaturedIndex((prev) => (prev - 1 + bannerTrips.length) % bannerTrips.length)}
-                  className="p-1 text-[#78756E] hover:text-[#1F1E1D] transition-colors"
+                  className="p-1 text-[#78756E] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] transition-colors"
                   title="上一張"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setFeaturedIndex((prev) => (prev + 1) % bannerTrips.length)}
-                  className="p-1 text-[#78756E] hover:text-[#1F1E1D] transition-colors"
+                  className="p-1 text-[#78756E] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] transition-colors"
                   title="下一張"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -139,7 +139,7 @@ export function HomeView({
           </div>
 
           {/* Hero Photographic Monograph Display */}
-          <div className="relative mt-6 overflow-hidden bg-[#181716] text-[#FBFBFA]">
+          <div className="relative mt-6 overflow-hidden bg-[#181716] text-[#FBFBFA] rounded-xs border border-transparent dark:border-[#2C2C29]">
             {/* Image Stage */}
             <div className="relative h-[480px] sm:h-[580px] lg:h-[640px] w-full overflow-hidden">
               <img
@@ -230,18 +230,18 @@ export function HomeView({
       )}
 
       {/* 2. STATS & OVERVIEW: Museum Curated Metrics Strip */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-[#EAE7DF]">
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-[#EAE7DF] dark:border-[#2C2C29]">
         <div 
           onClick={() => onNavigateTab('map')}
           className="space-y-1 cursor-pointer group"
         >
-          <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E]">
+          <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
             COUNTRIES
           </div>
-          <div className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] group-hover:text-[#4A4742] transition-colors">
+          <div className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] dark:text-[#FAF9F6] group-hover:text-[#78756E] dark:group-hover:text-[#C2A984] transition-colors">
             {String(uniqueCountries).padStart(2, '0')}
           </div>
-          <div className="text-xs text-[#78756E] font-light">
+          <div className="text-xs text-[#78756E] dark:text-[#A8A49B] font-light">
             個造訪國家與地區
           </div>
         </div>
@@ -250,13 +250,13 @@ export function HomeView({
           onClick={() => onNavigateTab('map')}
           className="space-y-1 cursor-pointer group"
         >
-          <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E]">
+          <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
             LANDMARKS
           </div>
-          <div className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] group-hover:text-[#4A4742] transition-colors">
+          <div className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] dark:text-[#FAF9F6] group-hover:text-[#78756E] dark:group-hover:text-[#C2A984] transition-colors">
             {String(totalPlaces).padStart(2, '0')}
           </div>
-          <div className="text-xs text-[#78756E] font-light">
+          <div className="text-xs text-[#78756E] dark:text-[#A8A49B] font-light">
             個打卡座標與私房景點
           </div>
         </div>
@@ -265,13 +265,13 @@ export function HomeView({
           onClick={() => onNavigateTab('gallery')}
           className="space-y-1 cursor-pointer group"
         >
-          <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E]">
+          <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
             PHOTOGRAPHS
           </div>
-          <div className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] group-hover:text-[#4A4742] transition-colors">
+          <div className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] dark:text-[#FAF9F6] group-hover:text-[#78756E] dark:group-hover:text-[#C2A984] transition-colors">
             {String(totalPhotos).padStart(2, '0')}
           </div>
-          <div className="text-xs text-[#78756E] font-light">
+          <div className="text-xs text-[#78756E] dark:text-[#A8A49B] font-light">
             張精選攝影作品
           </div>
         </div>
@@ -280,13 +280,13 @@ export function HomeView({
           onClick={() => onNavigateTab('trips')}
           className="space-y-1 cursor-pointer group"
         >
-          <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E]">
+          <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
             TOTAL DAYS
           </div>
-          <div className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] group-hover:text-[#4A4742] transition-colors">
+          <div className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] dark:text-[#FAF9F6] group-hover:text-[#78756E] dark:group-hover:text-[#C2A984] transition-colors">
             {String(totalDays).padStart(2, '0')}
           </div>
-          <div className="text-xs text-[#78756E] font-light">
+          <div className="text-xs text-[#78756E] dark:text-[#A8A49B] font-light">
             天旅程回憶記錄
           </div>
         </div>
@@ -294,19 +294,19 @@ export function HomeView({
 
       {/* 3. SELECTED JOURNEYS: Monograph Archive Grid */}
       <section className="space-y-8">
-        <div className="flex items-baseline justify-between pb-3 border-b border-[#EAE7DF]">
+        <div className="flex items-baseline justify-between pb-3 border-b border-[#EAE7DF] dark:border-[#2C2C29]">
           <div>
-            <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
+            <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
               SELECTED EXPEDITIONS
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] mt-1">
+            <h2 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] dark:text-[#FAF9F6] mt-1">
               精選旅行故事
             </h2>
           </div>
 
           <button
             onClick={() => onNavigateTab('trips')}
-            className="text-xs uppercase tracking-[0.18em] text-[#55524C] hover:text-[#1F1E1D] flex items-center gap-1 transition"
+            className="text-xs uppercase tracking-[0.18em] text-[#55524C] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] flex items-center gap-1 transition"
           >
             <span>全部記錄 ({trips.length})</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -323,7 +323,7 @@ export function HomeView({
               className="group cursor-pointer flex flex-col space-y-4"
             >
               {/* Photo Frame */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#E8E6DF]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#E8E6DF] dark:bg-[#20201E] rounded-xs">
                 <img
                   src={trip.coverImage}
                   alt={trip.title}
@@ -335,16 +335,16 @@ export function HomeView({
                 />
                 
                 {/* Subtle Overlay badge */}
-                <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#1F1E1D]/85 backdrop-blur-md text-[#FAF9F6] text-[10px] uppercase tracking-wider font-sans rounded-xs flex items-center gap-1.5 shadow-xs">
+                <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#1F1E1D]/85 dark:bg-[#141413]/90 backdrop-blur-md text-[#FAF9F6] text-[10px] uppercase tracking-wider font-sans rounded-xs flex items-center gap-1.5 shadow-xs border border-white/10">
                   <span>{trip.country}</span>
                   <span className="opacity-30">|</span>
-                  <span className="text-[#D5D2C8] font-mono text-[9px] flex items-center gap-0.5 font-light">
+                  <span className="text-[#D5D2C8] dark:text-[#ABA79C] font-mono text-[9px] flex items-center gap-0.5 font-light">
                     <MousePointerClick className="w-2.5 h-2.5 opacity-80" />
                     <span>{getCountryClickCount(trip.country, countryClicks)} 次點擊</span>
                   </span>
                 </div>
 
-                <div className="absolute bottom-3 right-3 px-2 py-0.5 bg-[#FAF9F6]/90 backdrop-blur-md text-[#232120] text-[10px] font-mono">
+                <div className="absolute bottom-3 right-3 px-2 py-0.5 bg-[#FAF9F6]/90 dark:bg-[#1C1C1A]/90 backdrop-blur-md text-[#232120] dark:text-[#FAF9F6] text-[10px] font-mono border border-black/5 dark:border-white/10 rounded-xs">
                   {trip.daysCount} DAYS
                 </div>
               </div>
@@ -352,28 +352,28 @@ export function HomeView({
               {/* Monograph Metadata */}
               <div className="space-y-2 flex-1 flex flex-col justify-between">
                 <div className="space-y-1.5">
-                  <div className="text-[11px] tracking-[0.15em] uppercase text-[#88857E] flex items-center justify-between">
+                  <div className="text-[11px] tracking-[0.15em] uppercase text-[#88857E] dark:text-[#9A968E] flex items-center justify-between">
                     <span>{trip.destination}</span>
                     <span className="font-mono">{trip.startDate.slice(0, 7)}</span>
                   </div>
 
-                  <h3 className="font-serif text-lg sm:text-xl text-[#1F1E1D] group-hover:text-[#4A4742] transition-colors leading-snug line-clamp-2">
+                  <h3 className="font-serif text-lg sm:text-xl text-[#1F1E1D] dark:text-[#FAF9F6] group-hover:text-[#6B6861] dark:group-hover:text-[#C2A984] transition-colors leading-snug line-clamp-2">
                     {trip.title}
                   </h3>
 
-                  <p className="text-xs text-[#6B6861] line-clamp-2 leading-relaxed font-light">
+                  <p className="text-xs text-[#6B6861] dark:text-[#A8A49B] line-clamp-2 leading-relaxed font-light">
                     {trip.summary}
                   </p>
                 </div>
 
                 {/* Card Footer */}
-                <div className="pt-3 border-t border-[#EAE7DF] flex items-center justify-between text-[11px] text-[#88857E] font-sans">
+                <div className="pt-3 border-t border-[#EAE7DF] dark:border-[#2C2C29] flex items-center justify-between text-[11px] text-[#88857E] dark:text-[#9A968E] font-sans">
                   <div className="flex items-center gap-3">
                     <span>{trip.photos.length} 張照片</span>
                     <span>·</span>
                     <span>{trip.places.length} 個足跡</span>
                   </div>
-                  <span className="text-[#1F1E1D] group-hover:translate-x-1 transition-transform">
+                  <span className="text-[#1F1E1D] dark:text-[#FAF9F6] group-hover:translate-x-1 transition-transform">
                     閱讀遊記 →
                   </span>
                 </div>
@@ -386,19 +386,19 @@ export function HomeView({
 
       {/* 4. PHOTOGRAPHY EXHIBITION STRIP */}
       <section className="space-y-8 pt-6">
-        <div className="flex items-baseline justify-between pb-3 border-b border-[#EAE7DF]">
+        <div className="flex items-baseline justify-between pb-3 border-b border-[#EAE7DF] dark:border-[#2C2C29]">
           <div>
-            <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
+            <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
               VISUAL DIARY
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] mt-1">
+            <h2 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] dark:text-[#FAF9F6] mt-1">
               光影瞬間相簿
             </h2>
           </div>
 
           <button
             onClick={() => onNavigateTab('gallery')}
-            className="text-xs uppercase tracking-[0.18em] text-[#55524C] hover:text-[#1F1E1D] flex items-center gap-1 transition"
+            className="text-xs uppercase tracking-[0.18em] text-[#55524C] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] flex items-center gap-1 transition"
           >
             <span>瀏覽完整畫廊</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -411,7 +411,7 @@ export function HomeView({
             <div
               key={photo.id}
               onClick={() => onOpenPhotoLightbox(photo, allCuratedPhotos)}
-              className="group relative aspect-square overflow-hidden bg-[#E8E6DF] cursor-pointer"
+              className="group relative aspect-square overflow-hidden bg-[#E8E6DF] dark:bg-[#20201E] cursor-pointer rounded-xs"
             >
               <img
                 src={photo.url}
@@ -440,24 +440,24 @@ export function HomeView({
       </section>
 
       {/* 5. CARTOGRAPHIC EXPLORATION BANNER */}
-      <section className="border border-[#EAE7DF] bg-[#F4F2EB] p-8 sm:p-12 md:p-16 relative overflow-hidden">
+      <section className="border border-[#EAE7DF] dark:border-[#2C2C29] bg-[#F4F2EB] dark:bg-[#1C1C1A] p-8 sm:p-12 md:p-16 relative overflow-hidden rounded-xs">
         <div className="relative z-10 max-w-xl space-y-4">
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
             CARTOGRAPHY & FOOTPRINTS
           </span>
           
-          <h2 className="font-serif text-2xl sm:text-4xl text-[#1F1E1D] leading-snug">
+          <h2 className="font-serif text-2xl sm:text-4xl text-[#1F1E1D] dark:text-[#FAF9F6] leading-snug">
             在地圖的經緯間，重溫每一步的感動
           </h2>
 
-          <p className="text-xs sm:text-sm text-[#66635D] leading-relaxed font-light">
+          <p className="text-xs sm:text-sm text-[#66635D] dark:text-[#A8A49B] leading-relaxed font-light">
             以互動地圖視覺化呈現每一趟旅途的軌跡路線、私房美食與風景座標。
           </p>
 
           <div className="pt-2 flex flex-wrap gap-4">
             <button
               onClick={() => onNavigateTab('map')}
-              className="px-6 py-3 bg-[#1F1E1D] hover:bg-[#33302D] text-[#FAF9F6] text-xs tracking-[0.2em] uppercase rounded-xs transition shadow-sm"
+              className="px-6 py-3 bg-[#1F1E1D] hover:bg-[#33302D] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-xs tracking-[0.2em] uppercase rounded-xs transition shadow-sm font-medium"
             >
               開啟全螢幕地圖
             </button>
@@ -465,14 +465,14 @@ export function HomeView({
             {isAuthorMode ? (
               <button
                 onClick={onOpenCreateModal}
-                className="px-5 py-3 border border-[#D5D2C8] hover:border-[#1F1E1D] text-[#33302D] text-xs tracking-[0.15em] uppercase transition"
+                className="px-5 py-3 border border-[#D5D2C8] dark:border-[#2E2E2B] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] text-[#33302D] dark:text-[#E8E5DE] text-xs tracking-[0.15em] uppercase transition rounded-xs"
               >
                 + 記錄新旅程
               </button>
             ) : (
               <button
                 onClick={() => onNavigateTab('trips')}
-                className="px-5 py-3 border border-[#D5D2C8] hover:border-[#1F1E1D] text-[#33302D] text-xs tracking-[0.15em] uppercase transition"
+                className="px-5 py-3 border border-[#D5D2C8] dark:border-[#2E2E2B] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] text-[#33302D] dark:text-[#E8E5DE] text-xs tracking-[0.15em] uppercase transition rounded-xs"
               >
                 瀏覽所有典藏旅程 →
               </button>
@@ -481,24 +481,24 @@ export function HomeView({
         </div>
 
         <div className="absolute right-0 bottom-0 top-0 w-1/3 opacity-5 pointer-events-none hidden md:flex items-center justify-center">
-          <Globe className="w-96 h-96 text-[#1F1E1D]" />
+          <Globe className="w-96 h-96 text-[#1F1E1D] dark:text-[#FAF9F6]" />
         </div>
       </section>
 
       {/* 6. WHISPER-QUIET SHARE SECTION */}
-      <section className="border-t border-[#EAE7DF] pt-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <section className="border-t border-[#EAE7DF] dark:border-[#2C2C29] pt-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div className="space-y-1">
-          <h3 className="font-serif text-lg text-[#1F1E1D]">
+          <h3 className="font-serif text-lg text-[#1F1E1D] dark:text-[#FAF9F6]">
             分享這本旅行攝影集
           </h3>
-          <p className="text-xs text-[#78756E] font-light">
+          <p className="text-xs text-[#78756E] dark:text-[#A8A49B] font-light">
             產生專屬分享網址或 QR Code，朋友可於任何裝置直接沉浸式閱讀。
           </p>
         </div>
 
         <button
           onClick={() => onOpenShareModal()}
-          className="self-start sm:self-auto px-6 py-2.5 bg-[#FAF9F6] hover:bg-[#F2EFE8] border border-[#D5D2C8] text-[#1F1E1D] text-xs uppercase tracking-[0.18em] rounded-xs transition"
+          className="self-start sm:self-auto px-6 py-2.5 bg-[#FAF9F6] dark:bg-[#1C1C1A] hover:bg-[#F2EFE8] dark:hover:bg-[#262623] border border-[#D5D2C8] dark:border-[#2E2E2B] text-[#1F1E1D] dark:text-[#FAF9F6] text-xs uppercase tracking-[0.18em] rounded-xs transition"
         >
           產生分享網址 →
         </button>

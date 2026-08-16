@@ -207,34 +207,34 @@ export function TripEditorModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#121110]/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-[#FAF9F6] border border-[#D5D2C8] max-w-3xl w-full shadow-2xl overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 bg-[#121110]/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto font-sans">
+      <div className="bg-[#FAF9F6] dark:bg-[#1C1C1A] border border-[#D5D2C8] dark:border-[#2C2C29] max-w-3xl w-full shadow-2xl overflow-hidden my-8 rounded-xs">
         
         {/* Header */}
-        <div className="p-6 pb-4 border-b border-[#EAE7DF] flex items-center justify-between">
+        <div className="p-6 pb-4 border-b border-[#EAE7DF] dark:border-[#2C2C29] flex items-center justify-between">
           <div>
-            <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
+            <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
               MONOGRAPH EDITOR
             </span>
-            <h2 className="font-serif text-xl text-[#1F1E1D] mt-0.5">
+            <h2 className="font-serif text-xl text-[#1F1E1D] dark:text-[#FAF9F6] mt-0.5">
               {isEditing ? '編輯旅行紀錄' : '記錄一趟全新旅行'}
             </h2>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 text-[#88857E] hover:text-[#1F1E1D] transition"
+            className="p-1.5 text-[#88857E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] transition"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-6 text-[#242220] max-h-[80vh] overflow-y-auto text-xs">
+        <form onSubmit={handleSubmit} className="p-6 space-y-6 text-[#242220] dark:text-[#E8E5DE] max-h-[80vh] overflow-y-auto text-xs">
           
           {/* Presets */}
           <div>
-            <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1.5 font-sans">
+            <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1.5 font-sans">
               快速填入經典目的地：
             </label>
             <div className="flex flex-wrap gap-2">
@@ -243,7 +243,7 @@ export function TripEditorModal({
                   key={k}
                   type="button"
                   onClick={() => handleApplyPreset(k)}
-                  className="px-2.5 py-1 bg-[#F4F2EB] hover:bg-[#EAE7DF] text-[#383633] text-xs transition"
+                  className="px-2.5 py-1 bg-[#F4F2EB] dark:bg-[#282825] hover:bg-[#EAE7DF] dark:hover:bg-[#343430] text-[#383633] dark:text-[#FAF9F6] text-xs transition rounded-xs border border-[#E0DDD5] dark:border-[#383834]"
                 >
                   {k}
                 </button>
@@ -255,7 +255,7 @@ export function TripEditorModal({
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   旅行主標題 *：
                 </label>
                 <input
@@ -263,13 +263,13 @@ export function TripEditorModal({
                   placeholder="例：初春京都與嵐山：櫻花古寺慢活散策"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full bg-white border border-[#D5D2C8] p-2.5 text-xs text-[#1F1E1D] focus:outline-none"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2.5 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] focus:outline-none rounded-xs"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   副標題 / 摘要短句：
                 </label>
                 <input
@@ -277,14 +277,14 @@ export function TripEditorModal({
                   placeholder="例：漫步哲學之道、走進嵐山竹林的春日回憶"
                   value={subtitle}
                   onChange={(e) => setSubtitle(e.target.value)}
-                  className="w-full bg-white border border-[#D5D2C8] p-2.5 text-xs text-[#1F1E1D] focus:outline-none"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2.5 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] focus:outline-none rounded-xs"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   目的地城市 *：
                 </label>
                 <input
@@ -292,12 +292,12 @@ export function TripEditorModal({
                   placeholder="例：京都 & 嵐山"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
-                  className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] focus:outline-none rounded-xs"
                   required
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   國家/地區：
                 </label>
                 <input
@@ -305,17 +305,17 @@ export function TripEditorModal({
                   placeholder="例：日本 (Japan)"
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
-                  className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] focus:outline-none rounded-xs"
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   旅行風格：
                 </label>
                 <select
                   value={vibe}
                   onChange={(e) => setVibe(e.target.value as any)}
-                  className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] focus:outline-none rounded-xs"
                 >
                   <option value="leisure">靜謐放鬆</option>
                   <option value="culture">人文歷史</option>
@@ -328,29 +328,29 @@ export function TripEditorModal({
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   出發日期：
                 </label>
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full bg-white border border-[#D5D2C8] p-2 text-xs font-mono"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] font-mono rounded-xs"
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   結束日期：
                 </label>
                 <input
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full bg-white border border-[#D5D2C8] p-2 text-xs font-mono"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] font-mono rounded-xs"
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   旅行天數：
                 </label>
                 <input
@@ -359,7 +359,7 @@ export function TripEditorModal({
                   max="60"
                   value={daysCount}
                   onChange={(e) => setDaysCount(Number(e.target.value))}
-                  className="w-full bg-white border border-[#D5D2C8] p-2 text-xs font-mono"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] font-mono rounded-xs"
                 />
               </div>
             </div>
@@ -367,10 +367,10 @@ export function TripEditorModal({
             {/* Cover Image */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E]">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E]">
                   封面攝影照片 (Banner Image)：
                 </label>
-                <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#33302D] text-[#FAF9F6] text-[10px] uppercase tracking-wider rounded-xs transition-colors shadow-xs">
+                <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#33302D] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-[10px] uppercase tracking-wider rounded-xs transition-colors shadow-xs font-medium">
                   <ImageIcon className="w-3 h-3" />
                   <span>從電腦上傳照片</span>
                   <input
@@ -397,10 +397,10 @@ export function TripEditorModal({
                 value={coverImage}
                 onChange={(e) => setCoverImage(e.target.value)}
                 placeholder="或輸入圖片網址 (Image URL)"
-                className="w-full bg-white border border-[#D5D2C8] p-2 text-xs font-mono"
+                className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] font-mono rounded-xs"
               />
               {coverImage && (
-                <div className="mt-2 h-32 overflow-hidden bg-[#E8E6DF] border border-[#D5D2C8] relative group">
+                <div className="mt-2 h-32 overflow-hidden bg-[#E8E6DF] dark:bg-[#2A2A27] border border-[#D5D2C8] dark:border-[#383834] relative group rounded-xs">
                   <img src={coverImage} alt="封面預覽" className="w-full h-full object-cover" />
                   <div className="absolute inset-x-0 bottom-0 bg-black/60 text-white text-[10px] py-1 px-2 text-center opacity-0 group-hover:opacity-100 transition-opacity">
                     封面預覽
@@ -412,13 +412,13 @@ export function TripEditorModal({
             {/* Summary */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E]">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E]">
                   旅行故事概述：
                 </label>
                 <button
                   type="button"
                   onClick={handleGenerateAISummary}
-                  className="text-[10px] text-[#78756E] hover:text-[#1F1E1D] underline"
+                  className="text-[10px] text-[#78756E] dark:text-[#9A8060] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] underline"
                 >
                   產生概述文字
                 </button>
@@ -427,14 +427,14 @@ export function TripEditorModal({
                 rows={3}
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
-                className="w-full bg-white border border-[#D5D2C8] p-2.5 text-xs text-[#1F1E1D] leading-relaxed"
+                className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2.5 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] leading-relaxed rounded-xs"
                 placeholder="寫下這趟旅行的整體氛圍與故事..."
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   同行旅伴：
                 </label>
                 <input
@@ -442,11 +442,11 @@ export function TripEditorModal({
                   placeholder="例：小涵、阿偉"
                   value={companionsText}
                   onChange={(e) => setCompanionsText(e.target.value)}
-                  className="w-full bg-white border border-[#D5D2C8] p-2 text-xs"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] rounded-xs"
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase tracking-wider text-[#78756E] block mb-1">
+                <label className="text-[10px] uppercase tracking-wider text-[#78756E] dark:text-[#9A968E] block mb-1">
                   旅途金句 / 感言 (Pull Quote)：
                 </label>
                 <input
@@ -454,22 +454,22 @@ export function TripEditorModal({
                   placeholder="例：世界很大，每一步都是新的風景。"
                   value={memoriesText}
                   onChange={(e) => setMemoriesText(e.target.value)}
-                  className="w-full bg-white border border-[#D5D2C8] p-2 text-xs font-serif"
+                  className="w-full bg-white dark:bg-[#222220] border border-[#D5D2C8] dark:border-[#2C2C29] p-2 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] font-serif rounded-xs"
                 />
               </div>
             </div>
           </div>
 
           {/* Days Section */}
-          <div className="space-y-4 pt-4 border-t border-[#EAE7DF]">
+          <div className="space-y-4 pt-4 border-t border-[#EAE7DF] dark:border-[#2C2C29]">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] tracking-[0.2em] uppercase text-[#88857E]">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
                 DAILY ITINERARY ({days.length} DAYS)
               </span>
               <button
                 type="button"
                 onClick={handleAddDay}
-                className="px-2.5 py-1 bg-[#F4F2EB] hover:bg-[#EAE7DF] text-[#1F1E1D] text-[11px] uppercase tracking-wider transition"
+                className="px-2.5 py-1 bg-[#F4F2EB] dark:bg-[#282825] hover:bg-[#EAE7DF] dark:hover:bg-[#343430] text-[#1F1E1D] dark:text-[#FAF9F6] text-[11px] uppercase tracking-wider transition rounded-xs border border-[#E0DDD5] dark:border-[#383834]"
               >
                 + 新增一天
               </button>
@@ -477,16 +477,16 @@ export function TripEditorModal({
 
             <div className="space-y-3">
               {days.map((day, idx) => (
-                <div key={day.dayNumber || idx} className="p-3 bg-[#F4F2EB] border border-[#EAE7DF] space-y-2">
+                <div key={day.dayNumber || idx} className="p-3 bg-[#F4F2EB] dark:bg-[#232320] border border-[#EAE7DF] dark:border-[#2C2C29] space-y-2 rounded-xs">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-medium text-[#1F1E1D]">
+                    <span className="font-mono text-xs font-medium text-[#1F1E1D] dark:text-[#FAF9F6]">
                       DAY {day.dayNumber}
                     </span>
                     {days.length > 1 && (
                       <button
                         type="button"
                         onClick={() => setDays(days.filter((_, i) => i !== idx))}
-                        className="text-[#88857E] hover:text-red-700 text-xs"
+                        className="text-[#88857E] hover:text-red-700 dark:hover:text-red-400 text-xs transition"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -503,7 +503,7 @@ export function TripEditorModal({
                         updated[idx].title = e.target.value;
                         setDays(updated);
                       }}
-                      className="bg-white border border-[#D5D2C8] p-1.5 text-xs"
+                      className="bg-white dark:bg-[#1A1A18] border border-[#D5D2C8] dark:border-[#383834] p-1.5 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] rounded-xs"
                     />
                     <input
                       type="text"
@@ -514,7 +514,7 @@ export function TripEditorModal({
                         updated[idx].weather = e.target.value;
                         setDays(updated);
                       }}
-                      className="bg-white border border-[#D5D2C8] p-1.5 text-xs"
+                      className="bg-white dark:bg-[#1A1A18] border border-[#D5D2C8] dark:border-[#383834] p-1.5 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] rounded-xs"
                     />
                   </div>
 
@@ -527,7 +527,7 @@ export function TripEditorModal({
                       updated[idx].journalText = e.target.value;
                       setDays(updated);
                     }}
-                    className="w-full bg-white border border-[#D5D2C8] p-1.5 text-xs"
+                    className="w-full bg-white dark:bg-[#1A1A18] border border-[#D5D2C8] dark:border-[#383834] p-1.5 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] rounded-xs"
                   />
                 </div>
               ))}
@@ -535,17 +535,17 @@ export function TripEditorModal({
           </div>
 
           {/* Submit Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#EAE7DF]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#EAE7DF] dark:border-[#2C2C29]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-[#D5D2C8] hover:border-[#1F1E1D] text-xs uppercase tracking-wider"
+              className="px-4 py-2 border border-[#D5D2C8] dark:border-[#383834] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] text-xs uppercase tracking-wider text-[#55524C] dark:text-[#A8A49B] rounded-xs transition"
             >
               取消
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] text-xs uppercase tracking-widest transition flex items-center gap-2"
+              className="px-6 py-2 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-xs uppercase tracking-widest transition flex items-center gap-2 rounded-xs font-medium"
             >
               <Save className="w-3.5 h-3.5" />
               <span>{isEditing ? '儲存修改' : '建立旅行紀錄'}</span>

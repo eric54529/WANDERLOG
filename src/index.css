@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     --bg-main: #F7F6F2;
@@ -12,13 +14,21 @@
   }
 
   .dark {
-    --bg-main: #171716;
-    --bg-card: #20201E;
-    --bg-subtle: #2A2A27;
+    --bg-main: #141413;
+    --bg-card: #1C1C1A;
+    --bg-subtle: #252523;
     --text-primary: #E8E5DE;
     --text-secondary: #A8A49B;
-    --border-color: #393733;
-    --accent-color: #B39A73;
+    --border-color: #333330;
+    --accent-color: #C2A984;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
 
   body {
@@ -26,71 +36,12 @@
     color: var(--text-primary);
     background-color: var(--bg-main);
     letter-spacing: 0.01em;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   h1, h2, h3, .font-serif {
     font-family: 'Noto Serif TC', 'Playfair Display', 'Cormorant Garamond', serif;
   }
-}
-
-/* Dark Mode Global Class Mappings */
-.dark body {
-  background-color: #171716 !important;
-  color: #E8E5DE !important;
-}
-
-.dark .bg-\[\#FAF9F6\],
-.dark .bg-\[\#F7F6F2\],
-.dark .bg-white {
-  background-color: #20201E !important;
-  color: #E8E5DE !important;
-}
-
-.dark .bg-\[\#F5F3EC\],
-.dark .bg-\[\#F2EFE8\],
-.dark .bg-\[\#EFECE4\],
-.dark .bg-\[\#EAE7DF\],
-.dark .bg-gray-50,
-.dark .bg-gray-100 {
-  background-color: #2A2A27 !important;
-  color: #E8E5DE !important;
-}
-
-.dark .text-\[\#242220\],
-.dark .text-\[\#1F1E1D\],
-.dark .text-\[\#252525\],
-.dark .text-gray-900,
-.dark .text-neutral-900,
-.dark .text-gray-800,
-.dark .text-gray-700 {
-  color: #E8E5DE !important;
-}
-
-.dark .text-\[\#78756E\],
-.dark .text-\[\#88857E\],
-.dark .text-\[\#77736C\],
-.dark .text-gray-600,
-.dark .text-gray-500 {
-  color: #A8A49B !important;
-}
-
-.dark .border-\[\#EAE7DF\],
-.dark .border-\[\#DDD9D0\],
-.dark .border-\[\#D5D2C8\],
-.dark .border-\[\#E0DDD5\],
-.dark .border-\[\#DCD9D0\],
-.dark .border-gray-200,
-.dark .border-gray-300 {
-  border-color: #393733 !important;
-}
-
-.dark input,
-.dark select,
-.dark textarea {
-  background-color: #171716 !important;
-  color: #E8E5DE !important;
-  border-color: #393733 !important;
 }
 
 /* Editorial subtle scrollbar */
@@ -113,3 +64,4 @@
   background: transparent;
   border: none;
 }
+

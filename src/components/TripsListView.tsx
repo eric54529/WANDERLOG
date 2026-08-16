@@ -106,18 +106,18 @@ export function TripsListView({
   };
 
   return (
-    <div className="space-y-12 pb-24 text-[#242220]">
+    <div className="space-y-12 pb-24 text-[#242220] dark:text-[#E8E5DE]">
       
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#EAE7DF]">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#EAE7DF] dark:border-[#2C2C29]">
         <div>
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
             TRAVEL ARCHIVE & CHRONICLES
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] mt-1.5">
+          <h1 className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] dark:text-[#FAF9F6] mt-1.5">
             旅行紀錄典藏
           </h1>
-          <p className="text-xs text-[#78756E] mt-1 font-light">
+          <p className="text-xs text-[#78756E] dark:text-[#A8A49B] mt-1 font-light">
             共收錄 {trips.length} 趟精選行旅紀錄，記錄途中的足跡與光影
           </p>
         </div>
@@ -125,7 +125,7 @@ export function TripsListView({
         {isAuthorMode && (
           <button
             onClick={onOpenCreateModal}
-            className="self-start sm:self-auto flex items-center gap-2 px-5 py-2.5 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] text-xs uppercase tracking-[0.18em] rounded-xs transition shadow-sm"
+            className="self-start sm:self-auto flex items-center gap-2 px-5 py-2.5 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-xs uppercase tracking-[0.18em] rounded-xs transition shadow-sm font-medium"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>記錄新旅行</span>
@@ -138,18 +138,18 @@ export function TripsListView({
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
           {/* Search Input */}
           <div className="relative w-full md:w-80">
-            <Search className="w-3.5 h-3.5 text-[#9C998F] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-[#9C998F] dark:text-[#7A7770] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="搜尋旅行標題、城市或關鍵字..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#F4F2EB] text-xs text-[#1F1E1D] placeholder-[#9C998F] pl-8 pr-8 py-2 rounded-xs border border-transparent focus:border-[#ABA79C] focus:bg-white focus:outline-none transition"
+              className="w-full bg-[#F4F2EB] dark:bg-[#1C1C1A] text-xs text-[#1F1E1D] dark:text-[#FAF9F6] placeholder-[#9C998F] dark:placeholder-[#7A7770] pl-8 pr-8 py-2 rounded-xs border border-transparent dark:border-[#2C2C29] focus:border-[#ABA79C] dark:focus:border-[#4A4742] focus:bg-white dark:focus:bg-[#232320] focus:outline-none transition"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#88857E] hover:text-[#1F1E1D] text-xs"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#88857E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] text-xs"
               >
                 ✕
               </button>
@@ -158,12 +158,12 @@ export function TripsListView({
 
           {/* Sort and View Mode */}
           <div className="flex items-center gap-4 justify-between md:justify-end text-xs">
-            <div className="flex items-center gap-2 text-[#78756E]">
+            <div className="flex items-center gap-2 text-[#78756E] dark:text-[#A8A49B]">
               <span className="text-[11px] uppercase tracking-wider">排序方式：</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-[#F4F2EB] border-none rounded-xs px-2.5 py-1.5 text-xs text-[#1F1E1D] focus:outline-none focus:ring-1 focus:ring-[#ABA79C]"
+                className="bg-[#F4F2EB] dark:bg-[#1C1C1A] border border-transparent dark:border-[#2C2C29] rounded-xs px-2.5 py-1.5 text-xs text-[#1F1E1D] dark:text-[#FAF9F6] focus:outline-none focus:ring-1 focus:ring-[#ABA79C]"
               >
                 <option value="date-desc">最新出發日期</option>
                 <option value="date-asc">最舊出發日期</option>
@@ -173,11 +173,13 @@ export function TripsListView({
             </div>
 
             {/* Layout Toggle */}
-            <div className="flex items-center border border-[#E0DDD5] rounded-xs overflow-hidden">
+            <div className="flex items-center border border-[#E0DDD5] dark:border-[#2C2C29] rounded-xs overflow-hidden">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-1.5 transition ${
-                  viewMode === 'grid' ? 'bg-[#1F1E1D] text-[#FAF9F6]' : 'text-[#78756E] hover:bg-[#F2EFE8]'
+                  viewMode === 'grid' 
+                    ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716]' 
+                    : 'text-[#78756E] dark:text-[#A8A49B] hover:bg-[#F2EFE8] dark:hover:bg-[#262623]'
                 }`}
                 title="網格檢視"
               >
@@ -186,7 +188,9 @@ export function TripsListView({
               <button
                 onClick={() => setViewMode('list')}
                 className={`p-1.5 transition ${
-                  viewMode === 'list' ? 'bg-[#1F1E1D] text-[#FAF9F6]' : 'text-[#78756E] hover:bg-[#F2EFE8]'
+                  viewMode === 'list' 
+                    ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716]' 
+                    : 'text-[#78756E] dark:text-[#A8A49B] hover:bg-[#F2EFE8] dark:hover:bg-[#262623]'
                 }`}
                 title="清單檢視"
               >
@@ -197,16 +201,16 @@ export function TripsListView({
         </div>
 
         {/* Filter Pills */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#EAE7DF] text-xs">
-          <span className="text-[11px] uppercase tracking-wider text-[#88857E] mr-1">
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#EAE7DF] dark:border-[#2C2C29] text-xs">
+          <span className="text-[11px] uppercase tracking-wider text-[#88857E] dark:text-[#9A968E] mr-1">
             國家：
           </span>
           <button
             onClick={() => setSelectedCountry('all')}
             className={`px-3 py-1.5 rounded-xs transition text-xs ${
               selectedCountry === 'all'
-                ? 'bg-[#1F1E1D] text-[#FAF9F6] font-medium'
-                : 'bg-[#F4F2EB] text-[#66635D] hover:text-[#1F1E1D]'
+                ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                : 'bg-[#F4F2EB] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
             }`}
           >
             全部 ({trips.length})
@@ -224,15 +228,17 @@ export function TripsListView({
                 }}
                 className={`px-3 py-1.5 rounded-xs transition text-xs flex items-center gap-1.5 ${
                   isSelected
-                    ? 'bg-[#1F1E1D] text-[#FAF9F6] font-medium shadow-xs'
-                    : 'bg-[#F4F2EB] text-[#66635D] hover:text-[#1F1E1D] hover:bg-[#EAE7DF]'
+                    ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium shadow-xs'
+                    : 'bg-[#F4F2EB] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] hover:bg-[#EAE7DF] dark:hover:bg-[#262623]'
                 }`}
                 title={`點擊查看${c}旅行紀錄（累計 ${clickCount} 次點擊）`}
               >
                 <span>{c.split('(')[0].trim()}</span>
                 <span className="opacity-60 text-[10px]">({count}篇)</span>
                 <span className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-xs text-[10px] font-mono ${
-                  isSelected ? 'bg-white/20 text-[#FAF9F6]' : 'bg-[#E5E2D9] text-[#4A4742]'
+                  isSelected 
+                    ? 'bg-white/20 dark:bg-black/20 text-[#FAF9F6] dark:text-[#171716]' 
+                    : 'bg-[#E5E2D9] dark:bg-[#2B2B28] text-[#4A4742] dark:text-[#C5C1B8]'
                 }`}>
                   <MousePointerClick className="w-2.5 h-2.5 opacity-70" />
                   <span>{clickCount} 次點擊</span>
@@ -241,17 +247,17 @@ export function TripsListView({
             );
           })}
 
-          <div className="h-3 w-px bg-[#D5D2C8] mx-2 hidden sm:block" />
+          <div className="h-3 w-px bg-[#D5D2C8] dark:bg-[#2C2C29] mx-2 hidden sm:block" />
 
-          <span className="text-[11px] uppercase tracking-wider text-[#88857E] mr-1 hidden sm:inline">
+          <span className="text-[11px] uppercase tracking-wider text-[#88857E] dark:text-[#9A968E] mr-1 hidden sm:inline">
             風格：
           </span>
           <button
             onClick={() => setSelectedVibe('all')}
             className={`px-3 py-1 rounded-xs transition text-xs ${
               selectedVibe === 'all'
-                ? 'bg-[#1F1E1D] text-[#FAF9F6] font-medium'
-                : 'bg-[#F4F2EB] text-[#66635D] hover:text-[#1F1E1D]'
+                ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                : 'bg-[#F4F2EB] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
             }`}
           >
             全部風格
@@ -262,8 +268,8 @@ export function TripsListView({
               onClick={() => setSelectedVibe(selectedVibe === vibeKey ? 'all' : vibeKey)}
               className={`px-3 py-1 rounded-xs transition text-xs ${
                 selectedVibe === vibeKey
-                  ? 'bg-[#1F1E1D] text-[#FAF9F6] font-medium'
-                  : 'bg-[#F4F2EB] text-[#66635D] hover:text-[#1F1E1D]'
+                  ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                  : 'bg-[#F4F2EB] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
               {vibeLabels[vibeKey]}
@@ -274,9 +280,9 @@ export function TripsListView({
 
       {/* TRIPS ARCHIVE LISTINGS */}
       {filteredTrips.length === 0 ? (
-        <div className="py-20 text-center space-y-4 border border-dashed border-[#D5D2C8] rounded-xs">
-          <div className="text-sm font-serif text-[#1F1E1D]">無符合條件的旅行紀錄</div>
-          <p className="text-xs text-[#88857E] font-light max-w-sm mx-auto">
+        <div className="py-20 text-center space-y-4 border border-dashed border-[#D5D2C8] dark:border-[#2C2C29] rounded-xs">
+          <div className="text-sm font-serif text-[#1F1E1D] dark:text-[#FAF9F6]">無符合條件的旅行紀錄</div>
+          <p className="text-xs text-[#88857E] dark:text-[#A8A49B] font-light max-w-sm mx-auto">
             可嘗試重設篩選條件，或建立一段全新的旅行遊記。
           </p>
           <button
@@ -285,7 +291,7 @@ export function TripsListView({
               setSelectedVibe('all');
               setSearchQuery('');
             }}
-            className="px-4 py-2 border border-[#D5D2C8] text-xs uppercase tracking-wider hover:border-[#1F1E1D]"
+            className="px-4 py-2 border border-[#D5D2C8] dark:border-[#2C2C29] text-xs uppercase tracking-wider hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] text-[#1F1E1D] dark:text-[#FAF9F6]"
           >
             重設篩選
           </button>
@@ -300,7 +306,7 @@ export function TripsListView({
             >
                 {/* Photo Frame */}
                 <div 
-                  className="relative aspect-[4/3] w-full overflow-hidden bg-[#E8E6DF] cursor-pointer"
+                  className="relative aspect-[4/3] w-full overflow-hidden bg-[#E8E6DF] dark:bg-[#20201E] cursor-pointer rounded-xs"
                   onClick={() => {
                     onRecordCountryClick(trip.country);
                     onSelectTrip(trip, 'story');
@@ -321,17 +327,17 @@ export function TripsListView({
                       setSelectedCountry(trip.country);
                       onRecordCountryClick(trip.country);
                     }}
-                    className="absolute top-3 left-3 px-2.5 py-1 bg-[#1F1E1D]/85 hover:bg-[#1F1E1D] backdrop-blur-md text-[#FAF9F6] text-[10px] uppercase tracking-wider font-sans rounded-xs flex items-center gap-1.5 transition cursor-pointer z-10 shadow-sm"
+                    className="absolute top-3 left-3 px-2.5 py-1 bg-[#1F1E1D]/85 hover:bg-[#1F1E1D] dark:bg-[#141413]/90 backdrop-blur-md text-[#FAF9F6] text-[10px] uppercase tracking-wider font-sans rounded-xs flex items-center gap-1.5 transition cursor-pointer z-10 shadow-sm border border-white/10"
                     title="點擊依此國家篩選（增加點擊次數）"
                   >
                     <span>{trip.country}</span>
                     <span className="opacity-30">|</span>
-                    <span className="text-[#E0DDD5] font-mono text-[9px] flex items-center gap-0.5 font-light">
+                    <span className="text-[#E0DDD5] dark:text-[#ABA79C] font-mono text-[9px] flex items-center gap-0.5 font-light">
                       <MousePointerClick className="w-2.5 h-2.5 opacity-80" />
                       <span>{getCountryClickCount(trip.country, countryClicks)} 次點擊</span>
                     </span>
                   </div>
-                  <div className="absolute bottom-3 right-3 px-2 py-0.5 bg-[#FAF9F6]/90 backdrop-blur-md text-[#232120] text-[10px] font-mono">
+                  <div className="absolute bottom-3 right-3 px-2 py-0.5 bg-[#FAF9F6]/90 dark:bg-[#1C1C1A]/90 backdrop-blur-md text-[#232120] dark:text-[#FAF9F6] text-[10px] font-mono border border-black/5 dark:border-white/10 rounded-xs">
                     {trip.daysCount} DAYS
                   </div>
                 </div>
@@ -339,29 +345,29 @@ export function TripsListView({
               {/* Body */}
               <div className="space-y-2 flex-1 flex flex-col justify-between">
                 <div className="space-y-1.5">
-                  <div className="text-[11px] tracking-[0.15em] uppercase text-[#88857E] flex items-center justify-between">
+                  <div className="text-[11px] tracking-[0.15em] uppercase text-[#88857E] dark:text-[#9A968E] flex items-center justify-between">
                     <span>{trip.destination}</span>
                     <span className="font-mono">{trip.startDate}</span>
                   </div>
 
                   <h2 
                     onClick={() => onSelectTrip(trip, 'story')}
-                    className="font-serif text-lg sm:text-xl text-[#1F1E1D] group-hover:text-[#55524C] transition-colors leading-snug cursor-pointer line-clamp-2"
+                    className="font-serif text-lg sm:text-xl text-[#1F1E1D] dark:text-[#FAF9F6] group-hover:text-[#55524C] dark:group-hover:text-[#C2A984] transition-colors leading-snug cursor-pointer line-clamp-2"
                   >
                     {trip.title}
                   </h2>
 
-                  <p className="text-xs text-[#66635D] line-clamp-2 leading-relaxed font-light">
+                  <p className="text-xs text-[#66635D] dark:text-[#A8A49B] line-clamp-2 leading-relaxed font-light">
                     {trip.summary}
                   </p>
                 </div>
 
                 {/* Footer Controls */}
-                <div className="pt-3 border-t border-[#EAE7DF] flex items-center justify-between text-xs text-[#88857E]">
+                <div className="pt-3 border-t border-[#EAE7DF] dark:border-[#2C2C29] flex items-center justify-between text-xs text-[#88857E] dark:text-[#9A968E]">
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => onSelectTrip(trip, 'story')}
-                      className="text-[#1F1E1D] hover:underline font-medium"
+                      className="text-[#1F1E1D] dark:text-[#FAF9F6] hover:underline font-medium"
                     >
                       閱讀故事 →
                     </button>
@@ -370,7 +376,7 @@ export function TripsListView({
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => onOpenShareModal(trip)}
-                      className="p-1.5 hover:text-[#1F1E1D] transition"
+                      className="p-1.5 hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] transition"
                       title="分享網址"
                     >
                       <Share2 className="w-3.5 h-3.5" />
@@ -380,7 +386,7 @@ export function TripsListView({
                       <>
                         <button
                           onClick={() => onEditTrip(trip)}
-                          className="p-1.5 hover:text-[#1F1E1D] transition"
+                          className="p-1.5 hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6] transition"
                           title="編輯紀錄"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
@@ -391,7 +397,7 @@ export function TripsListView({
                               onDeleteTrip(trip.id);
                             }
                           }}
-                          className="p-1.5 hover:text-red-700 transition"
+                          className="p-1.5 hover:text-red-700 dark:hover:text-red-400 transition"
                           title="刪除"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -407,7 +413,7 @@ export function TripsListView({
         </div>
       ) : (
         /* LIST MODE */
-        <div className="divide-y divide-[#EAE7DF] border-y border-[#EAE7DF]">
+        <div className="divide-y divide-[#EAE7DF] dark:divide-[#2C2C29] border-y border-[#EAE7DF] dark:border-[#2C2C29]">
           {filteredTrips.map((trip) => (
             <article
               key={trip.id}
@@ -420,7 +426,7 @@ export function TripsListView({
                   onSelectTrip(trip, 'story');
                 }}
               >
-                <div className="w-24 h-24 sm:w-28 sm:h-28 overflow-hidden bg-[#E8E6DF] shrink-0">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 overflow-hidden bg-[#E8E6DF] dark:bg-[#20201E] shrink-0 rounded-xs">
                   <img
                     src={trip.coverImage}
                     alt={trip.title}
@@ -432,19 +438,19 @@ export function TripsListView({
                 </div>
 
                 <div className="space-y-1.5 min-w-0 flex-1">
-                  <div className="text-[11px] tracking-[0.15em] uppercase text-[#88857E] flex flex-wrap items-center gap-2">
+                  <div className="text-[11px] tracking-[0.15em] uppercase text-[#88857E] dark:text-[#9A968E] flex flex-wrap items-center gap-2">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedCountry(trip.country);
                         onRecordCountryClick(trip.country);
                       }}
-                      className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#F0EDE5] hover:bg-[#E4E0D6] text-[#2C2A28] rounded-xs font-mono text-[10px] transition"
+                      className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#F0EDE5] dark:bg-[#242422] hover:bg-[#E4E0D6] dark:hover:bg-[#30302C] text-[#2C2A28] dark:text-[#E8E5DE] rounded-xs font-mono text-[10px] transition"
                       title="點擊依此國家篩選"
                     >
                       <span>{trip.country}</span>
                       <span className="text-[#88857E]">·</span>
-                      <span className="text-[#55524C] font-medium flex items-center gap-0.5">
+                      <span className="text-[#55524C] dark:text-[#C5C1B8] font-medium flex items-center gap-0.5">
                         <MousePointerClick className="w-2.5 h-2.5 opacity-70" />
                         {getCountryClickCount(trip.country, countryClicks)} 次點擊
                       </span>
@@ -455,11 +461,11 @@ export function TripsListView({
                     <span className="font-mono">{trip.daysCount} DAYS</span>
                   </div>
 
-                  <h2 className="font-serif text-lg text-[#1F1E1D] group-hover:text-[#55524C] transition-colors truncate">
+                  <h2 className="font-serif text-lg text-[#1F1E1D] dark:text-[#FAF9F6] group-hover:text-[#55524C] dark:group-hover:text-[#C2A984] transition-colors truncate">
                     {trip.title}
                   </h2>
 
-                  <p className="text-xs text-[#66635D] line-clamp-1 font-light">
+                  <p className="text-xs text-[#66635D] dark:text-[#A8A49B] line-clamp-1 font-light">
                     {trip.summary}
                   </p>
                 </div>
@@ -469,13 +475,13 @@ export function TripsListView({
               <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto text-xs">
                 <button
                   onClick={() => onSelectTrip(trip, 'story')}
-                  className="px-4 py-2 bg-[#1F1E1D] text-[#FAF9F6] text-xs uppercase tracking-wider rounded-xs transition"
+                  className="px-4 py-2 bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] text-xs uppercase tracking-wider rounded-xs transition font-medium"
                 >
                   瀏覽遊記
                 </button>
                 <button
                   onClick={() => onOpenShareModal(trip)}
-                  className="p-2 border border-[#E0DDD5] hover:border-[#1F1E1D] text-[#55524C] rounded-xs transition"
+                  className="p-2 border border-[#E0DDD5] dark:border-[#2C2C29] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] text-[#55524C] dark:text-[#A8A49B] rounded-xs transition"
                   title="分享"
                 >
                   <Share2 className="w-3.5 h-3.5" />
@@ -484,7 +490,7 @@ export function TripsListView({
                   <>
                     <button
                       onClick={() => onEditTrip(trip)}
-                      className="p-2 border border-[#E0DDD5] hover:border-[#1F1E1D] text-[#55524C] rounded-xs transition"
+                      className="p-2 border border-[#E0DDD5] dark:border-[#2C2C29] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] text-[#55524C] dark:text-[#A8A49B] rounded-xs transition"
                       title="編輯"
                     >
                       <Edit3 className="w-3.5 h-3.5" />
@@ -495,7 +501,7 @@ export function TripsListView({
                           onDeleteTrip(trip.id);
                         }
                       }}
-                      className="p-2 border border-[#E0DDD5] hover:border-red-700 text-red-600 rounded-xs transition"
+                      className="p-2 border border-[#E0DDD5] dark:border-[#2C2C29] hover:border-red-700 text-red-600 dark:text-red-400 rounded-xs transition"
                       title="刪除"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -511,3 +517,4 @@ export function TripsListView({
     </div>
   );
 }
+

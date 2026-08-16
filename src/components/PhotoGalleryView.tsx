@@ -137,18 +137,18 @@ export function PhotoGalleryView({
   };
 
   return (
-    <div className="space-y-12 pb-24 text-[#242220]">
+    <div className="space-y-12 pb-24 text-[#242220] dark:text-[#E8E5DE]">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#EAE7DF]">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#EAE7DF] dark:border-[#2C2C29]">
         <div>
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
             PHOTOGRAPHY EXHIBITION & CURATION
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] mt-1.5">
+          <h1 className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] dark:text-[#FAF9F6] mt-1.5">
             旅行攝影集畫廊
           </h1>
-          <p className="text-xs text-[#78756E] mt-1 font-light">
+          <p className="text-xs text-[#78756E] dark:text-[#A8A49B] mt-1 font-light">
             典藏 {allPhotosWithTrip.length} 張底片與數位光影，記錄旅途中的瞬間視角
           </p>
         </div>
@@ -156,7 +156,7 @@ export function PhotoGalleryView({
         {isAuthorMode && (
           <button
             onClick={() => setIsAddPhotoOpen(!isAddPhotoOpen)}
-            className="self-start sm:self-auto flex items-center gap-2 px-5 py-2.5 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] text-xs uppercase tracking-[0.18em] rounded-xs transition shadow-sm"
+            className="self-start sm:self-auto flex items-center gap-2 px-5 py-2.5 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-xs uppercase tracking-[0.18em] rounded-xs transition shadow-sm font-medium"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>新增相片</span>
@@ -168,16 +168,16 @@ export function PhotoGalleryView({
       {isAuthorMode && isAddPhotoOpen && (
         <form
           onSubmit={handleAddPhotoSubmit}
-          className="p-6 bg-[#F5F3EC] border border-[#EAE7DF] space-y-4 max-w-2xl text-xs"
+          className="p-6 bg-[#F5F3EC] dark:bg-[#1C1C1A] border border-[#EAE7DF] dark:border-[#2C2C29] space-y-4 max-w-2xl text-xs rounded-xs"
         >
-          <div className="flex items-center justify-between pb-2 border-b border-[#E0DDD5]">
-            <h3 className="font-serif text-base text-[#1F1E1D]">
+          <div className="flex items-center justify-between pb-2 border-b border-[#E0DDD5] dark:border-[#2C2C29]">
+            <h3 className="font-serif text-base text-[#1F1E1D] dark:text-[#FAF9F6]">
               添加照片至旅行相簿
             </h3>
             <button
               type="button"
               onClick={() => setIsAddPhotoOpen(false)}
-              className="text-[#88857E] hover:text-[#1F1E1D]"
+              className="text-[#88857E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]"
             >
               ✕
             </button>
@@ -185,13 +185,13 @@ export function PhotoGalleryView({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] block mb-1">
                 歸屬旅行：
               </label>
               <select
                 value={targetTripId}
                 onChange={(e) => setTargetTripId(e.target.value)}
-                className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+                className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] p-2 text-xs focus:outline-none rounded-xs"
               >
                 {trips.map((t) => (
                   <option key={t.id} value={t.id}>
@@ -202,7 +202,7 @@ export function PhotoGalleryView({
             </div>
 
             <div>
-              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] block mb-1">
                 第幾天拍攝 (Day)：
               </label>
               <input
@@ -211,17 +211,17 @@ export function PhotoGalleryView({
                 max="30"
                 value={newDayNumber}
                 onChange={(e) => setNewDayNumber(Number(e.target.value))}
-                className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none font-mono"
+                className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] p-2 text-xs focus:outline-none font-mono rounded-xs"
               />
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] block">
                 照片網址 (Image URL) *：
               </label>
-              <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#33302D] text-[#FAF9F6] text-[10px] uppercase tracking-wider rounded-xs transition-colors shadow-xs">
+              <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#33302D] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-[10px] uppercase tracking-wider rounded-xs transition-colors shadow-xs font-medium">
                 <ImageIcon className="w-3 h-3" />
                 <span>從電腦上傳相片</span>
                 <input
@@ -248,14 +248,14 @@ export function PhotoGalleryView({
               placeholder="https://..."
               value={newPhotoUrl}
               onChange={(e) => setNewPhotoUrl(e.target.value)}
-              className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none font-mono"
+              className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] p-2 text-xs focus:outline-none font-mono rounded-xs"
               required
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] block mb-1">
                 照片敘述 / 圖說 *：
               </label>
               <input
@@ -263,13 +263,13 @@ export function PhotoGalleryView({
                 placeholder="例：嵐山竹林清晨的第一縷陽光"
                 value={newCaption}
                 onChange={(e) => setNewCaption(e.target.value)}
-                className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+                className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] p-2 text-xs focus:outline-none rounded-xs"
                 required
               />
             </div>
 
             <div>
-              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] block mb-1">
                 拍攝拍攝地點：
               </label>
               <input
@@ -277,7 +277,7 @@ export function PhotoGalleryView({
                 placeholder="例：京都 嵯峨野"
                 value={newLocation}
                 onChange={(e) => setNewLocation(e.target.value)}
-                className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+                className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] p-2 text-xs focus:outline-none rounded-xs"
               />
             </div>
           </div>
@@ -286,13 +286,13 @@ export function PhotoGalleryView({
             <button
               type="button"
               onClick={() => setIsAddPhotoOpen(false)}
-              className="px-4 py-2 border border-[#D5D2C8] hover:border-[#1F1E1D]"
+              className="px-4 py-2 border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] rounded-xs"
             >
               取消
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-[#1F1E1D] text-[#FAF9F6] uppercase tracking-wider"
+              className="px-5 py-2 bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] uppercase tracking-wider rounded-xs font-medium"
             >
               確認添加
             </button>
@@ -304,16 +304,16 @@ export function PhotoGalleryView({
       {isAuthorMode && editingPhoto && (
         <form
           onSubmit={handleEditPhotoSubmit}
-          className="p-6 bg-[#F5F3EC] border border-[#EAE7DF] space-y-4 max-w-2xl text-xs"
+          className="p-6 bg-[#F5F3EC] dark:bg-[#1C1C1A] border border-[#EAE7DF] dark:border-[#2C2C29] space-y-4 max-w-2xl text-xs rounded-xs"
         >
-          <div className="flex items-center justify-between pb-2 border-b border-[#E0DDD5]">
-            <h3 className="font-serif text-base text-[#1F1E1D]">
+          <div className="flex items-center justify-between pb-2 border-b border-[#E0DDD5] dark:border-[#2C2C29]">
+            <h3 className="font-serif text-base text-[#1F1E1D] dark:text-[#FAF9F6]">
               編輯相片資訊
             </h3>
             <button
               type="button"
               onClick={() => setEditingPhoto(null)}
-              className="text-[#88857E] hover:text-[#1F1E1D]"
+              className="text-[#88857E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]"
             >
               ✕
             </button>
@@ -321,7 +321,7 @@ export function PhotoGalleryView({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] block mb-1">
                 第幾天拍攝 (Day)：
               </label>
               <input
@@ -330,28 +330,28 @@ export function PhotoGalleryView({
                 max="30"
                 value={editDayNumber}
                 onChange={(e) => setEditDayNumber(Number(e.target.value))}
-                className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none font-mono"
+                className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] p-2 text-xs focus:outline-none font-mono rounded-xs"
               />
             </div>
             <div>
-              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] block mb-1">
                 拍攝地點：
               </label>
               <input
                 type="text"
                 value={editLocation}
                 onChange={(e) => setEditLocation(e.target.value)}
-                className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+                className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] p-2 text-xs focus:outline-none rounded-xs"
               />
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="text-[10px] tracking-wider uppercase text-[#78756E] block">
+              <label className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] block">
                 照片網址 (Image URL) *：
               </label>
-              <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#33302D] text-[#FAF9F6] text-[10px] uppercase tracking-wider rounded-xs transition-colors shadow-xs">
+              <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F1E1D] hover:bg-[#33302D] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-[10px] uppercase tracking-wider rounded-xs transition-colors shadow-xs font-medium">
                 <ImageIcon className="w-3 h-3" />
                 <span>從電腦上傳相片</span>
                 <input
@@ -377,20 +377,20 @@ export function PhotoGalleryView({
               type="text"
               value={editUrl}
               onChange={(e) => setEditUrl(e.target.value)}
-              className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none font-mono"
+              className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] p-2 text-xs focus:outline-none font-mono rounded-xs"
               required
             />
           </div>
 
           <div>
-            <label className="text-[10px] tracking-wider uppercase text-[#78756E] block mb-1">
+            <label className="text-[10px] tracking-wider uppercase text-[#78756E] dark:text-[#9A968E] block mb-1">
               照片敘述 / 圖說 *：
             </label>
             <input
               type="text"
               value={editCaption}
               onChange={(e) => setEditCaption(e.target.value)}
-              className="w-full bg-white border border-[#D5D2C8] p-2 text-xs focus:outline-none"
+              className="w-full bg-white dark:bg-[#232320] border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] p-2 text-xs focus:outline-none rounded-xs"
               required
             />
           </div>
@@ -399,13 +399,13 @@ export function PhotoGalleryView({
             <button
               type="button"
               onClick={() => setEditingPhoto(null)}
-              className="px-4 py-2 border border-[#D5D2C8] hover:border-[#1F1E1D]"
+              className="px-4 py-2 border border-[#D5D2C8] dark:border-[#2C2C29] text-[#1F1E1D] dark:text-[#FAF9F6] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6] rounded-xs"
             >
               取消
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-[#1F1E1D] text-[#FAF9F6] uppercase tracking-wider"
+              className="px-5 py-2 bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] uppercase tracking-wider rounded-xs font-medium"
             >
               儲存變更
             </button>
@@ -414,17 +414,17 @@ export function PhotoGalleryView({
       )}
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-[#EAE7DF] text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-[#EAE7DF] dark:border-[#2C2C29] text-xs">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[10px] tracking-wider uppercase text-[#88857E] mr-1">
+          <span className="text-[10px] tracking-wider uppercase text-[#88857E] dark:text-[#9A968E] mr-1">
             系列輯：
           </span>
           <button
             onClick={() => setSelectedTripFilter('all')}
             className={`px-3 py-1 rounded-xs transition text-xs ${
               selectedTripFilter === 'all'
-                ? 'bg-[#1F1E1D] text-[#FAF9F6]'
-                : 'bg-[#F4F2EB] text-[#66635D] hover:text-[#1F1E1D]'
+                ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                : 'bg-[#F4F2EB] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
             }`}
           >
             全部相片 ({allPhotosWithTrip.length})
@@ -435,8 +435,8 @@ export function PhotoGalleryView({
               onClick={() => setSelectedTripFilter(t.id)}
               className={`px-3 py-1 rounded-xs transition text-xs ${
                 selectedTripFilter === t.id
-                  ? 'bg-[#1F1E1D] text-[#FAF9F6]'
-                  : 'bg-[#F4F2EB] text-[#66635D] hover:text-[#1F1E1D]'
+                  ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                  : 'bg-[#F4F2EB] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
               <span>{t.destination.split('&')[0].trim()}</span>
@@ -449,8 +449,8 @@ export function PhotoGalleryView({
           onClick={() => setOnlyFavorites(!onlyFavorites)}
           className={`flex items-center gap-1.5 px-3 py-1 border rounded-xs transition text-xs uppercase tracking-wider ${
             onlyFavorites
-              ? 'border-[#1F1E1D] bg-[#1F1E1D] text-[#FAF9F6]'
-              : 'border-[#D5D2C8] text-[#66635D] hover:border-[#1F1E1D]'
+              ? 'border-[#1F1E1D] bg-[#1F1E1D] text-[#FAF9F6] dark:border-[#FAF9F6] dark:bg-[#FAF9F6] dark:text-[#171716]'
+              : 'border-[#D5D2C8] dark:border-[#2C2C29] text-[#66635D] dark:text-[#A8A49B] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6]'
           }`}
         >
           <Heart className={`w-3.5 h-3.5 ${onlyFavorites ? 'fill-current' : ''}`} />
@@ -460,14 +460,14 @@ export function PhotoGalleryView({
 
       {/* GALLERY GRID */}
       {filteredPhotoItems.length === 0 ? (
-        <div className="py-20 text-center space-y-3 border border-dashed border-[#D5D2C8]">
-          <p className="font-serif text-sm text-[#1F1E1D]">暫無符合條件的照片</p>
+        <div className="py-20 text-center space-y-3 border border-dashed border-[#D5D2C8] dark:border-[#2C2C29] rounded-xs">
+          <p className="font-serif text-sm text-[#1F1E1D] dark:text-[#FAF9F6]">暫無符合條件的照片</p>
           <button
             onClick={() => {
               setSelectedTripFilter('all');
               setOnlyFavorites(false);
             }}
-            className="text-xs underline text-[#88857E] hover:text-[#1F1E1D]"
+            className="text-xs underline text-[#88857E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]"
           >
             清除篩選條件
           </button>
@@ -481,7 +481,7 @@ export function PhotoGalleryView({
               className="group cursor-pointer space-y-3"
             >
               {/* Photo Frame */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#E8E6DF]">
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#E8E6DF] dark:bg-[#20201E] rounded-xs">
                 <img
                   src={photo.url}
                   alt={photo.caption}
@@ -520,26 +520,26 @@ export function PhotoGalleryView({
                   }}
                   className={`absolute top-2.5 right-2.5 p-1.5 rounded-full transition backdrop-blur-md ${
                     photo.liked
-                      ? 'bg-[#1F1E1D]/80 text-[#FAF9F6]'
+                      ? 'bg-[#1F1E1D]/80 dark:bg-[#FAF9F6]/90 text-[#FAF9F6] dark:text-[#171716]'
                       : 'bg-black/20 text-white/80 opacity-0 group-hover:opacity-100'
                   }`}
                 >
                   <Heart className={`w-3.5 h-3.5 ${photo.liked ? 'fill-current' : ''}`} />
                 </button>
 
-                <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 bg-[#1F1E1D]/75 backdrop-blur-md text-[#FAF9F6] text-[9px] uppercase tracking-widest font-mono">
+                <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 bg-[#1F1E1D]/75 dark:bg-[#141413]/85 backdrop-blur-md text-[#FAF9F6] text-[9px] uppercase tracking-widest font-mono rounded-xs">
                   DAY {photo.dayNumber}
                 </div>
               </div>
 
               {/* Photo Typography */}
               <div className="space-y-1">
-                <div className="text-[10px] tracking-wider uppercase text-[#88857E] flex items-center justify-between">
+                <div className="text-[10px] tracking-wider uppercase text-[#88857E] dark:text-[#9A968E] flex items-center justify-between">
                   <span>{trip.destination}</span>
                   {photo.location && <span>{photo.location}</span>}
                 </div>
 
-                <h3 className="font-serif text-sm text-[#1F1E1D] group-hover:text-[#55524C] leading-snug line-clamp-2">
+                <h3 className="font-serif text-sm text-[#1F1E1D] dark:text-[#FAF9F6] group-hover:text-[#55524C] dark:group-hover:text-[#C2A984] leading-snug line-clamp-2">
                   {photo.caption}
                 </h3>
               </div>

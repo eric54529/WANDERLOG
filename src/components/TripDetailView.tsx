@@ -91,26 +91,26 @@ export function TripDetailView({
     : trip.days.filter((d) => d.dayNumber === selectedDayNumber);
 
   return (
-    <div className="space-y-16 pb-28 text-[#242220]">
+    <div className="space-y-16 pb-28 text-[#242220] dark:text-[#E8E5DE]">
       
       {/* 1. TOP NAV & BREADCRUMBS & BACK BUTTON */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#EAE7DF] text-xs font-sans">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#EAE7DF] dark:border-[#2C2C29] text-xs font-sans">
         <div className="flex items-center gap-2.5">
           <button
             id="btn-detail-return-home"
             onClick={onNavigateHome || onBack}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#F0EDE5] hover:bg-[#E4E0D6] text-[#2C2A28] transition rounded-xs text-[11px] font-medium tracking-wider uppercase border border-[#DCD9D0]"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#F0EDE5] hover:bg-[#E4E0D6] dark:bg-[#20201E] dark:hover:bg-[#2A2A27] text-[#2C2A28] dark:text-[#FAF9F6] transition rounded-xs text-[11px] font-medium tracking-wider uppercase border border-[#DCD9D0] dark:border-[#2C2C29]"
             title="回到網站總覽首頁"
           >
             <Home className="w-3.5 h-3.5" />
             <span>返回首頁</span>
           </button>
 
-          <span className="text-[#CCC9C0]">/</span>
+          <span className="text-[#CCC9C0] dark:text-[#55524C]">/</span>
 
           <button
             onClick={onBack}
-            className="flex items-center gap-1.5 text-[#6B6861] hover:text-[#1F1E1D] transition uppercase tracking-widest text-[11px]"
+            className="flex items-center gap-1.5 text-[#6B6861] hover:text-[#1F1E1D] dark:text-[#A8A49B] dark:hover:text-[#FAF9F6] transition uppercase tracking-widest text-[11px]"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>旅行紀錄 ({trip.country})</span>
@@ -126,8 +126,8 @@ export function TripDetailView({
             }}
             className={`flex items-center gap-1.5 px-3 py-1.5 border rounded-xs transition text-xs tracking-wider uppercase ${
               trip.isFavorite
-                ? 'border-[#242220] bg-[#242220] text-[#FAF9F6]'
-                : 'border-[#D5D2C8] text-[#55524C] hover:border-[#1F1E1D]'
+                ? 'border-[#242220] bg-[#242220] text-[#FAF9F6] dark:border-[#FAF9F6] dark:bg-[#FAF9F6] dark:text-[#171716]'
+                : 'border-[#D5D2C8] dark:border-[#2C2C29] text-[#55524C] dark:text-[#A8A49B] hover:border-[#1F1E1D] dark:hover:border-[#FAF9F6]'
             }`}
           >
             <Heart className={`w-3.5 h-3.5 ${trip.isFavorite ? 'fill-current' : ''}`} />
@@ -137,7 +137,7 @@ export function TripDetailView({
           {/* Share Button */}
           <button
             onClick={() => onOpenShareModal(trip)}
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] rounded-xs transition text-xs uppercase tracking-widest"
+            className="flex items-center gap-1.5 px-4 py-1.5 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] rounded-xs transition text-xs uppercase tracking-widest font-medium"
           >
             <Share2 className="w-3.5 h-3.5" />
             <span>分享此篇</span>
@@ -148,7 +148,7 @@ export function TripDetailView({
       {/* 2. EDITORIAL COVER ESSAY HEADER */}
       <header className="space-y-8">
         {/* Full-Bleed Photograph Stage */}
-        <div className="relative h-[400px] sm:h-[500px] lg:h-[580px] w-full overflow-hidden bg-[#181716]">
+        <div className="relative h-[400px] sm:h-[500px] lg:h-[580px] w-full overflow-hidden bg-[#181716] rounded-xs">
           <img
             src={trip.coverImage}
             alt={trip.title}
@@ -186,39 +186,39 @@ export function TripDetailView({
         </div>
 
         {/* Editorial Metadata Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-6 border-y border-[#EAE7DF] text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 py-6 border-y border-[#EAE7DF] dark:border-[#2C2C29] text-xs">
           <div className="space-y-1">
-            <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E]">
+            <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
               EXPEDITION PERIOD
             </div>
-            <div className="font-mono text-[#1F1E1D]">
+            <div className="font-mono text-[#1F1E1D] dark:text-[#FAF9F6]">
               {trip.startDate} ~ {trip.endDate}
             </div>
           </div>
 
           <div className="space-y-1">
-            <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E]">
+            <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
               COMPANIONS
             </div>
-            <div className="text-[#1F1E1D]">
+            <div className="text-[#1F1E1D] dark:text-[#FAF9F6]">
               {trip.companions?.length ? trip.companions.join('、') : '獨旅探尋'}
             </div>
           </div>
 
           <div className="space-y-1">
-            <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E]">
+            <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
               PHOTO GALLERY
             </div>
-            <div className="text-[#1F1E1D]">
+            <div className="text-[#1F1E1D] dark:text-[#FAF9F6]">
               {trip.photos.length} 張精選光影
             </div>
           </div>
 
           <div className="space-y-1">
-            <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E]">
+            <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
               FOOTPRINT
             </div>
-            <div className="text-[#1F1E1D]">
+            <div className="text-[#1F1E1D] dark:text-[#FAF9F6]">
               {trip.places.length} 處地標記錄
             </div>
           </div>
@@ -226,20 +226,20 @@ export function TripDetailView({
 
         {/* Story Intro / Summary */}
         <div className="max-w-3xl space-y-6 pt-2">
-          <p className="font-serif text-lg sm:text-xl text-[#383531] leading-relaxed font-light">
+          <p className="font-serif text-lg sm:text-xl text-[#383531] dark:text-[#D5D2C8] leading-relaxed font-light">
             {trip.summary}
           </p>
 
           {/* Highlights Highlights */}
           {trip.highlights && trip.highlights.length > 0 && (
-            <div className="space-y-2 pt-4 border-t border-[#EAE7DF]">
-              <div className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
+            <div className="space-y-2 pt-4 border-t border-[#EAE7DF] dark:border-[#2C2C29]">
+              <div className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
                 TRIP HIGHLIGHTS
               </div>
-              <ul className="space-y-1.5 text-xs text-[#55524C]">
+              <ul className="space-y-1.5 text-xs text-[#55524C] dark:text-[#C5C1B8]">
                 {trip.highlights.map((h, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-[#1F1E1D] font-mono mt-0.5">•</span>
+                    <span className="text-[#1F1E1D] dark:text-[#FAF9F6] font-mono mt-0.5">•</span>
                     <span>{h}</span>
                   </li>
                 ))}
@@ -250,14 +250,14 @@ export function TripDetailView({
       </header>
 
       {/* 3. EDITORIAL SECTION TABS */}
-      <div className="sticky top-20 z-30 bg-[#FAF9F6]/95 backdrop-blur-md border-b border-[#EAE7DF] -mx-4 px-4 sm:mx-0 sm:px-0">
-        <div className="flex items-center gap-8 text-xs uppercase tracking-[0.18em]">
+      <div className="sticky top-20 z-30 bg-[#FAF9F6]/95 dark:bg-[#141413]/95 backdrop-blur-md border-b border-[#EAE7DF] dark:border-[#2C2C29] -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="flex items-center gap-8 text-xs uppercase tracking-[0.18em] overflow-x-auto no-scrollbar">
           <button
             onClick={() => setSubTab('story')}
-            className={`py-3.5 transition ${
+            className={`py-3.5 transition whitespace-nowrap ${
               subTab === 'story'
-                ? 'text-[#1F1E1D] font-semibold border-b-2 border-[#1F1E1D]'
-                : 'text-[#88857E] hover:text-[#1F1E1D]'
+                ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold border-b-2 border-[#1F1E1D] dark:border-[#FAF9F6]'
+                : 'text-[#88857E] dark:text-[#9A968E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
             }`}
           >
             每日遊記 · DIARY ({trip.days.length})
@@ -265,10 +265,10 @@ export function TripDetailView({
 
           <button
             onClick={() => setSubTab('photos')}
-            className={`py-3.5 transition ${
+            className={`py-3.5 transition whitespace-nowrap ${
               subTab === 'photos'
-                ? 'text-[#1F1E1D] font-semibold border-b-2 border-[#1F1E1D]'
-                : 'text-[#88857E] hover:text-[#1F1E1D]'
+                ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold border-b-2 border-[#1F1E1D] dark:border-[#FAF9F6]'
+                : 'text-[#88857E] dark:text-[#9A968E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
             }`}
           >
             相簿專欄 · GALLERY ({trip.photos.length})
@@ -276,10 +276,10 @@ export function TripDetailView({
 
           <button
             onClick={() => setSubTab('map')}
-            className={`py-3.5 transition ${
+            className={`py-3.5 transition whitespace-nowrap ${
               subTab === 'map'
-                ? 'text-[#1F1E1D] font-semibold border-b-2 border-[#1F1E1D]'
-                : 'text-[#88857E] hover:text-[#1F1E1D]'
+                ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold border-b-2 border-[#1F1E1D] dark:border-[#FAF9F6]'
+                : 'text-[#88857E] dark:text-[#9A968E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
             }`}
           >
             路線足跡 · FOOTPRINTS ({trip.places.length})
@@ -287,10 +287,10 @@ export function TripDetailView({
 
           <button
             onClick={() => setSubTab('tips')}
-            className={`py-3.5 transition ${
+            className={`py-3.5 transition whitespace-nowrap ${
               subTab === 'tips'
-                ? 'text-[#1F1E1D] font-semibold border-b-2 border-[#1F1E1D]'
-                : 'text-[#88857E] hover:text-[#1F1E1D]'
+                ? 'text-[#1F1E1D] dark:text-[#FAF9F6] font-semibold border-b-2 border-[#1F1E1D] dark:border-[#FAF9F6]'
+                : 'text-[#88857E] dark:text-[#9A968E] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
             }`}
           >
             備忘貼士 · TIPS
@@ -303,15 +303,15 @@ export function TripDetailView({
         <div className="space-y-16">
           {/* Day Filter Pills */}
           <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-[10px] tracking-wider uppercase text-[#88857E] mr-1">
+            <span className="text-[10px] tracking-wider uppercase text-[#88857E] dark:text-[#9A968E] mr-1">
               天數跳轉：
             </span>
             <button
               onClick={() => setSelectedDayNumber('all')}
               className={`px-3 py-1 text-xs uppercase tracking-wider rounded-xs transition ${
                 selectedDayNumber === 'all'
-                  ? 'bg-[#1F1E1D] text-[#FAF9F6]'
-                  : 'bg-[#F2EFE8] text-[#66635D] hover:text-[#1F1E1D]'
+                  ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                  : 'bg-[#F2EFE8] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
               全部天數 ({trip.days.length})
@@ -322,8 +322,8 @@ export function TripDetailView({
                 onClick={() => setSelectedDayNumber(d.dayNumber)}
                 className={`px-3 py-1 text-xs uppercase tracking-wider rounded-xs transition ${
                   selectedDayNumber === d.dayNumber
-                    ? 'bg-[#1F1E1D] text-[#FAF9F6]'
-                    : 'bg-[#F2EFE8] text-[#66635D] hover:text-[#1F1E1D]'
+                    ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                    : 'bg-[#F2EFE8] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
                 }`}
               >
                 Day {d.dayNumber}
@@ -341,12 +341,12 @@ export function TripDetailView({
                 <article
                   key={day.dayNumber}
                   id={`day-${day.dayNumber}`}
-                  className="space-y-8 pt-8 border-t border-[#EAE7DF] first:border-t-0 first:pt-0"
+                  className="space-y-8 pt-8 border-t border-[#EAE7DF] dark:border-[#2C2C29] first:border-t-0 first:pt-0"
                 >
                   {/* Day Header */}
                   <div className="space-y-2">
-                    <div className="flex items-center gap-3 text-xs tracking-[0.2em] uppercase text-[#88857E]">
-                      <span className="font-mono font-medium text-[#1F1E1D]">DAY {String(day.dayNumber).padStart(2, '0')}</span>
+                    <div className="flex items-center gap-3 text-xs tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
+                      <span className="font-mono font-medium text-[#1F1E1D] dark:text-[#FAF9F6]">DAY {String(day.dayNumber).padStart(2, '0')}</span>
                       <span>—</span>
                       <span className="font-mono">{day.date}</span>
                       {day.weather && (
@@ -363,14 +363,14 @@ export function TripDetailView({
                       )}
                     </div>
 
-                    <h2 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D]">
+                    <h2 className="font-serif text-2xl sm:text-3xl text-[#1F1E1D] dark:text-[#FAF9F6]">
                       {day.title}
                     </h2>
                   </div>
 
                   {/* Day Journal Body Text */}
                   <div className="max-w-3xl">
-                    <p className="text-sm sm:text-base text-[#3D3A36] leading-loose font-light whitespace-pre-line">
+                    <p className="text-sm sm:text-base text-[#3D3A36] dark:text-[#D5D2C8] leading-loose font-light whitespace-pre-line">
                       {day.journalText}
                     </p>
                   </div>
@@ -378,7 +378,7 @@ export function TripDetailView({
                   {/* Day Stops / Timeline (Fine-line minimalist layout) */}
                   {day.stops && day.stops.length > 0 && (
                     <div className="space-y-4 pt-4">
-                      <div className="text-[10px] tracking-[0.25em] uppercase text-[#88857E]">
+                      <div className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E]">
                         DAILY ITINERARY STOPS
                       </div>
 
@@ -386,16 +386,16 @@ export function TripDetailView({
                         {day.stops.map((stop) => (
                           <div
                             key={stop.id}
-                            className="p-4 bg-[#F5F3EC] border-l-2 border-[#1F1E1D] space-y-1.5"
+                            className="p-4 bg-[#F5F3EC] dark:bg-[#1C1C1A] border-l-2 border-[#1F1E1D] dark:border-[#FAF9F6] space-y-1.5 rounded-r-xs"
                           >
-                            <div className="flex items-center justify-between text-[11px] font-mono text-[#88857E]">
+                            <div className="flex items-center justify-between text-[11px] font-mono text-[#88857E] dark:text-[#9A968E]">
                               <span>{stop.time}</span>
                             </div>
-                            <h4 className="font-serif text-sm text-[#1F1E1D]">
+                            <h4 className="font-serif text-sm text-[#1F1E1D] dark:text-[#FAF9F6]">
                               {stop.placeName}
                             </h4>
                             {stop.description && (
-                              <p className="text-xs text-[#66635D] leading-relaxed font-light">
+                              <p className="text-xs text-[#66635D] dark:text-[#A8A49B] leading-relaxed font-light">
                                 {stop.description}
                               </p>
                             )}
@@ -408,7 +408,7 @@ export function TripDetailView({
                   {/* Day Photos Grid */}
                   {dayPhotos.length > 0 && (
                     <div className="space-y-3 pt-4">
-                      <div className="text-[10px] tracking-[0.25em] uppercase text-[#88857E]">
+                      <div className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E]">
                         DAY {day.dayNumber} PHOTOGRAPHS ({dayPhotos.length})
                       </div>
 
@@ -419,7 +419,7 @@ export function TripDetailView({
                             onClick={() => onOpenPhotoLightbox(photo, trip.photos)}
                             className="group cursor-pointer space-y-2"
                           >
-                            <div className="relative aspect-[4/3] overflow-hidden bg-[#E8E6DF]">
+                            <div className="relative aspect-[4/3] overflow-hidden bg-[#E8E6DF] dark:bg-[#20201E] rounded-xs">
                               <img
                                 src={photo.url}
                                 alt={photo.caption}
@@ -430,10 +430,10 @@ export function TripDetailView({
                                 loading="lazy"
                               />
                             </div>
-                            <div className="text-xs text-[#66635D] leading-snug">
-                              <p className="font-serif text-[#1F1E1D] line-clamp-1">{photo.caption}</p>
+                            <div className="text-xs text-[#66635D] dark:text-[#A8A49B] leading-snug">
+                              <p className="font-serif text-[#1F1E1D] dark:text-[#FAF9F6] line-clamp-1">{photo.caption}</p>
                               {photo.location && (
-                                <p className="text-[10px] text-[#88857E] uppercase tracking-wider mt-0.5">{photo.location}</p>
+                                <p className="text-[10px] text-[#88857E] dark:text-[#9A968E] uppercase tracking-wider mt-0.5">{photo.location}</p>
                               )}
                             </div>
                           </div>
@@ -449,12 +449,12 @@ export function TripDetailView({
 
           {/* Fine Editorial Pull Quote */}
           {trip.memoriesText && (
-            <div className="p-8 sm:p-12 bg-[#F5F3EC] border-y border-[#EAE7DF] text-center space-y-4 my-12">
-              <Quote className="w-6 h-6 mx-auto text-[#ABA79C]" />
-              <blockquote className="font-serif italic text-lg sm:text-2xl text-[#1F1E1D] max-w-2xl mx-auto leading-relaxed">
+            <div className="p-8 sm:p-12 bg-[#F5F3EC] dark:bg-[#1C1C1A] border-y border-[#EAE7DF] dark:border-[#2C2C29] text-center space-y-4 my-12 rounded-xs">
+              <Quote className="w-6 h-6 mx-auto text-[#ABA79C] dark:text-[#66635D]" />
+              <blockquote className="font-serif italic text-lg sm:text-2xl text-[#1F1E1D] dark:text-[#FAF9F6] max-w-2xl mx-auto leading-relaxed">
                 {trip.memoriesText}
               </blockquote>
-              <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E]">
+              <div className="text-[11px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E]">
                 — TRAVEL REFLECTION
               </div>
             </div>
@@ -466,11 +466,11 @@ export function TripDetailView({
       {/* 5. SUB-TAB CONTENT: PHOTO GALLERY MONOGRAPH */}
       {subTab === 'photos' && (
         <div className="space-y-8">
-          <div className="flex items-baseline justify-between pb-3 border-b border-[#EAE7DF]">
-            <h3 className="font-serif text-xl text-[#1F1E1D]">
+          <div className="flex items-baseline justify-between pb-3 border-b border-[#EAE7DF] dark:border-[#2C2C29]">
+            <h3 className="font-serif text-xl text-[#1F1E1D] dark:text-[#FAF9F6]">
               全相簿光影記錄 ({trip.photos.length} 張)
             </h3>
-            <span className="text-xs text-[#88857E] font-light">
+            <span className="text-xs text-[#88857E] dark:text-[#9A968E] font-light">
               點擊照片即可進入暗房畫廊檢視
             </span>
           </div>
@@ -482,7 +482,7 @@ export function TripDetailView({
                 onClick={() => onOpenPhotoLightbox(photo, trip.photos)}
                 className="group cursor-pointer space-y-2.5"
               >
-                <div className="relative aspect-[3/2] overflow-hidden bg-[#E8E6DF]">
+                <div className="relative aspect-[3/2] overflow-hidden bg-[#E8E6DF] dark:bg-[#20201E] rounded-xs">
                   <img
                     src={photo.url}
                     alt={photo.caption}
@@ -493,18 +493,18 @@ export function TripDetailView({
                     loading="lazy"
                   />
                   {photo.isCover && (
-                    <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-[#1F1E1D]/80 text-[#FAF9F6] text-[9px] uppercase tracking-widest font-sans">
+                    <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-[#1F1E1D]/80 dark:bg-[#141413]/90 text-[#FAF9F6] text-[9px] uppercase tracking-widest font-sans rounded-xs">
                       COVER
                     </div>
                   )}
                 </div>
 
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between text-[10px] text-[#88857E] font-mono">
+                  <div className="flex items-center justify-between text-[10px] text-[#88857E] dark:text-[#9A968E] font-mono">
                     <span>DAY {photo.dayNumber}</span>
                     {photo.location && <span>{photo.location}</span>}
                   </div>
-                  <h4 className="font-serif text-xs text-[#1F1E1D] leading-snug">
+                  <h4 className="font-serif text-xs text-[#1F1E1D] dark:text-[#FAF9F6] leading-snug">
                     {photo.caption}
                   </h4>
                 </div>
@@ -517,11 +517,11 @@ export function TripDetailView({
       {/* 6. SUB-TAB CONTENT: MAP FOOTPRINTS */}
       {subTab === 'map' && (
         <div className="space-y-8">
-          <div className="flex items-baseline justify-between pb-3 border-b border-[#EAE7DF]">
-            <h3 className="font-serif text-xl text-[#1F1E1D]">
+          <div className="flex items-baseline justify-between pb-3 border-b border-[#EAE7DF] dark:border-[#2C2C29]">
+            <h3 className="font-serif text-xl text-[#1F1E1D] dark:text-[#FAF9F6]">
               旅程軌跡與打卡座標 ({trip.places.length} 個景點)
             </h3>
-            <span className="text-xs text-[#88857E] font-light">
+            <span className="text-xs text-[#88857E] dark:text-[#9A968E] font-light">
               按地理經緯度記錄的地標清單
             </span>
           </div>
@@ -530,17 +530,17 @@ export function TripDetailView({
             {trip.places.map((place) => (
               <div
                 key={place.id}
-                className="p-5 bg-[#F5F3EC] border border-[#EAE7DF] space-y-2"
+                className="p-5 bg-[#F5F3EC] dark:bg-[#1C1C1A] border border-[#EAE7DF] dark:border-[#2C2C29] space-y-2 rounded-xs"
               >
-                <div className="flex items-center justify-between text-[10px] text-[#88857E] uppercase tracking-wider">
+                <div className="flex items-center justify-between text-[10px] text-[#88857E] dark:text-[#9A968E] uppercase tracking-wider">
                   <span>DAY {place.dayNumber}</span>
                   <span className="font-mono">{place.lat.toFixed(3)}, {place.lng.toFixed(3)}</span>
                 </div>
-                <h4 className="font-serif text-base text-[#1F1E1D]">
+                <h4 className="font-serif text-base text-[#1F1E1D] dark:text-[#FAF9F6]">
                   {place.name}
                 </h4>
                 {place.note && (
-                  <p className="text-xs text-[#66635D] leading-relaxed font-light">
+                  <p className="text-xs text-[#66635D] dark:text-[#A8A49B] leading-relaxed font-light">
                     {place.note}
                   </p>
                 )}
@@ -553,8 +553,8 @@ export function TripDetailView({
       {/* 7. SUB-TAB CONTENT: TIPS */}
       {subTab === 'tips' && (
         <div className="space-y-8 max-w-3xl">
-          <div className="pb-3 border-b border-[#EAE7DF]">
-            <h3 className="font-serif text-xl text-[#1F1E1D]">
+          <div className="pb-3 border-b border-[#EAE7DF] dark:border-[#2C2C29]">
+            <h3 className="font-serif text-xl text-[#1F1E1D] dark:text-[#FAF9F6]">
               旅行實用筆記與貼士
             </h3>
           </div>
@@ -564,41 +564,41 @@ export function TripDetailView({
               trip.tips.map((tip, idx) => (
                 <div
                   key={idx}
-                  className="p-4 bg-[#F5F3EC] border-l-2 border-[#1F1E1D] text-xs text-[#383531] leading-relaxed"
+                  className="p-4 bg-[#F5F3EC] dark:bg-[#1C1C1A] border-l-2 border-[#1F1E1D] dark:border-[#FAF9F6] text-xs text-[#383531] dark:text-[#D5D2C8] leading-relaxed rounded-r-xs"
                 >
                   {tip}
                 </div>
               ))
             ) : (
-              <p className="text-xs text-[#88857E]">暫無特別備忘。</p>
+              <p className="text-xs text-[#88857E] dark:text-[#9A968E]">暫無特別備忘。</p>
             )}
           </div>
         </div>
       )}
 
       {/* 8. INTERACTIVE GUESTBOOK: Leave notes for friends */}
-      <section className="pt-12 border-t border-[#EAE7DF] space-y-8 max-w-3xl">
+      <section className="pt-12 border-t border-[#EAE7DF] dark:border-[#2C2C29] space-y-8 max-w-3xl">
         <div className="space-y-1">
-          <div className="text-[10px] tracking-[0.25em] uppercase text-[#88857E]">
+          <div className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E]">
             READER GUESTBOOK
           </div>
-          <h3 className="font-serif text-2xl text-[#1F1E1D]">
+          <h3 className="font-serif text-2xl text-[#1F1E1D] dark:text-[#FAF9F6]">
             好友留言與共鳴
           </h3>
-          <p className="text-xs text-[#78756E] font-light">
+          <p className="text-xs text-[#78756E] dark:text-[#A8A49B] font-light">
             看完了這趟旅行？留下你的想法或回憶，與作者一起分享感動。
           </p>
         </div>
 
         {/* Add Note Form */}
-        <form onSubmit={handleAddComment} className="space-y-3 p-5 bg-[#F5F3EC] border border-[#EAE7DF]">
+        <form onSubmit={handleAddComment} className="space-y-3 p-5 bg-[#F5F3EC] dark:bg-[#1C1C1A] border border-[#EAE7DF] dark:border-[#2C2C29] rounded-xs">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
               type="text"
               placeholder="你的稱呼 / 旅伴姓名 (例：小明)"
               value={newAuthor}
               onChange={(e) => setNewAuthor(e.target.value)}
-              className="bg-white border border-[#E0DDD5] text-xs text-[#1F1E1D] p-2.5 focus:outline-none focus:border-[#1F1E1D]"
+              className="bg-white dark:bg-[#232320] border border-[#E0DDD5] dark:border-[#2C2C29] text-xs text-[#1F1E1D] dark:text-[#FAF9F6] placeholder-[#9C998F] dark:placeholder-[#7A7770] p-2.5 focus:outline-none focus:border-[#1F1E1D] dark:focus:border-[#ABA79C] rounded-xs"
             />
           </div>
           <textarea
@@ -606,13 +606,13 @@ export function TripDetailView({
             placeholder="寫下你的留言或對這趟旅行的感受..."
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            className="w-full bg-white border border-[#E0DDD5] text-xs text-[#1F1E1D] p-2.5 focus:outline-none focus:border-[#1F1E1D] leading-relaxed"
+            className="w-full bg-white dark:bg-[#232320] border border-[#E0DDD5] dark:border-[#2C2C29] text-xs text-[#1F1E1D] dark:text-[#FAF9F6] placeholder-[#9C998F] dark:placeholder-[#7A7770] p-2.5 focus:outline-none focus:border-[#1F1E1D] dark:focus:border-[#ABA79C] leading-relaxed rounded-xs"
             required
           />
           <div className="flex justify-end">
             <button
               type="submit"
-              className="px-5 py-2 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] text-xs uppercase tracking-wider transition"
+              className="px-5 py-2 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-xs uppercase tracking-wider transition rounded-xs font-medium"
             >
               傳送留言
             </button>
@@ -622,12 +622,12 @@ export function TripDetailView({
         {/* Existing Guestbook Notes */}
         <div className="space-y-4">
           {guestNotes.map((note) => (
-            <div key={note.id} className="p-4 bg-white border border-[#EAE7DF] space-y-1.5">
-              <div className="flex items-center justify-between text-[11px] text-[#88857E]">
-                <span className="font-serif text-[#1F1E1D] font-medium">{note.author}</span>
+            <div key={note.id} className="p-4 bg-white dark:bg-[#1C1C1A] border border-[#EAE7DF] dark:border-[#2C2C29] space-y-1.5 rounded-xs">
+              <div className="flex items-center justify-between text-[11px] text-[#88857E] dark:text-[#9A968E]">
+                <span className="font-serif text-[#1F1E1D] dark:text-[#FAF9F6] font-medium">{note.author}</span>
                 <span className="font-mono">{note.date}</span>
               </div>
-              <p className="text-xs text-[#55524C] leading-relaxed font-light">
+              <p className="text-xs text-[#55524C] dark:text-[#C5C1B8] leading-relaxed font-light">
                 {note.comment}
               </p>
             </div>
@@ -636,10 +636,10 @@ export function TripDetailView({
       </section>
 
       {/* 9. BOTTOM NAVIGATION ACTIONS */}
-      <div className="pt-8 border-t border-[#EAE7DF] flex flex-wrap items-center justify-between gap-4">
+      <div className="pt-8 border-t border-[#EAE7DF] dark:border-[#2C2C29] flex flex-wrap items-center justify-between gap-4">
         <button
           onClick={onNavigateHome || onBack}
-          className="flex items-center gap-2 px-5 py-2.5 bg-[#F0EDE5] hover:bg-[#E4E0D6] text-[#1F1E1D] text-xs uppercase tracking-wider rounded-xs transition font-medium border border-[#D5D2C8]"
+          className="flex items-center gap-2 px-5 py-2.5 bg-[#F0EDE5] hover:bg-[#E4E0D6] dark:bg-[#20201E] dark:hover:bg-[#2A2A27] text-[#1F1E1D] dark:text-[#FAF9F6] text-xs uppercase tracking-wider rounded-xs transition font-medium border border-[#D5D2C8] dark:border-[#2C2C29]"
         >
           <Home className="w-4 h-4" />
           <span>返回網站總覽首頁</span>
@@ -647,7 +647,7 @@ export function TripDetailView({
 
         <button
           onClick={onBack}
-          className="flex items-center gap-2 px-5 py-2.5 bg-[#1F1E1D] hover:bg-[#383633] text-[#FAF9F6] text-xs uppercase tracking-wider rounded-xs transition font-medium"
+          className="flex items-center gap-2 px-5 py-2.5 bg-[#1F1E1D] hover:bg-[#383633] dark:bg-[#FAF9F6] dark:hover:bg-[#EAE7DF] text-[#FAF9F6] dark:text-[#171716] text-xs uppercase tracking-wider rounded-xs transition font-medium"
         >
           <span>瀏覽更多旅行紀錄 ({trip.country}) →</span>
         </button>

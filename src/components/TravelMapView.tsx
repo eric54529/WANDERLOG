@@ -150,33 +150,33 @@ export function TravelMapView({
   };
 
   return (
-    <div className="space-y-8 pb-24 text-[#242220]">
+    <div className="space-y-8 pb-24 text-[#242220] dark:text-[#E8E5DE]">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#EAE7DF]">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-[#EAE7DF] dark:border-[#2C2C29]">
         <div>
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] font-sans">
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#88857E] dark:text-[#9A968E] font-sans">
             CARTOGRAPHY & EXPLORATION
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] mt-1.5">
+          <h1 className="font-serif text-3xl sm:text-4xl text-[#1F1E1D] dark:text-[#FAF9F6] mt-1.5">
             足跡地圖總覽
           </h1>
-          <p className="text-xs text-[#78756E] mt-1 font-light">
+          <p className="text-xs text-[#78756E] dark:text-[#A8A49B] mt-1 font-light">
             在地圖上重現每趟旅行的地理經緯度與打卡座標
           </p>
         </div>
 
         {/* Trip Filter */}
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-[10px] tracking-wider uppercase text-[#88857E] mr-1">
+          <span className="text-[10px] tracking-wider uppercase text-[#88857E] dark:text-[#9A968E] mr-1">
             範圍：
           </span>
           <button
             onClick={() => setActiveTripFilter('all')}
             className={`px-3 py-1 rounded-xs transition text-xs ${
               activeTripFilter === 'all'
-                ? 'bg-[#1F1E1D] text-[#FAF9F6]'
-                : 'bg-[#F4F2EB] text-[#66635D] hover:text-[#1F1E1D]'
+                ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                : 'bg-[#F4F2EB] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
             }`}
           >
             全部足跡 ({placesWithTrip.length})
@@ -187,8 +187,8 @@ export function TravelMapView({
               onClick={() => setActiveTripFilter(t.id)}
               className={`px-3 py-1 rounded-xs transition text-xs ${
                 activeTripFilter === t.id
-                  ? 'bg-[#1F1E1D] text-[#FAF9F6]'
-                  : 'bg-[#F4F2EB] text-[#66635D] hover:text-[#1F1E1D]'
+                  ? 'bg-[#1F1E1D] dark:bg-[#FAF9F6] text-[#FAF9F6] dark:text-[#171716] font-medium'
+                  : 'bg-[#F4F2EB] dark:bg-[#1C1C1A] text-[#66635D] dark:text-[#A8A49B] hover:text-[#1F1E1D] dark:hover:text-[#FAF9F6]'
               }`}
             >
               <span>{t.destination.split('&')[0].trim()}</span>
@@ -202,13 +202,13 @@ export function TravelMapView({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Interactive Map Box */}
-        <div className="lg:col-span-2 h-[500px] sm:h-[600px] border border-[#EAE7DF] relative overflow-hidden bg-[#E8E6DF]">
+        <div className="lg:col-span-2 h-[500px] sm:h-[600px] border border-[#EAE7DF] dark:border-[#2C2C29] relative overflow-hidden bg-[#E8E6DF] dark:bg-[#20201E] rounded-xs">
           <div ref={mapContainerRef} className="w-full h-full z-10" />
         </div>
 
         {/* Landmarks Sidebar List */}
         <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
-          <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] pb-2 border-b border-[#EAE7DF]">
+          <div className="text-[10px] tracking-[0.2em] uppercase text-[#88857E] dark:text-[#9A968E] pb-2 border-b border-[#EAE7DF] dark:border-[#2C2C29]">
             LANDMARK DIRECTORY ({filteredPlaces.length})
           </div>
 
@@ -221,36 +221,36 @@ export function TravelMapView({
                 <div
                   key={place.id || idx}
                   onClick={() => handlePlaceItemClick(place)}
-                  className={`p-4 border transition cursor-pointer space-y-1.5 ${
+                  className={`p-4 border transition cursor-pointer space-y-1.5 rounded-xs ${
                     isSelected
-                      ? 'bg-[#F5F3EC] border-[#1F1E1D]'
-                      : 'bg-white border-[#EAE7DF] hover:border-[#ABA79C]'
+                      ? 'bg-[#F5F3EC] dark:bg-[#232320] border-[#1F1E1D] dark:border-[#FAF9F6]'
+                      : 'bg-white dark:bg-[#1C1C1A] border-[#EAE7DF] dark:border-[#2C2C29] hover:border-[#ABA79C] dark:hover:border-[#55524C]'
                   }`}
                 >
-                  <div className="flex items-center justify-between text-[10px] text-[#88857E] font-mono">
+                  <div className="flex items-center justify-between text-[10px] text-[#88857E] dark:text-[#9A968E] font-mono">
                     <span>DAY {place.dayNumber}</span>
                     <span>{place.tripDestination}</span>
                   </div>
 
-                  <h3 className="font-serif text-sm text-[#1F1E1D]">
+                  <h3 className="font-serif text-sm text-[#1F1E1D] dark:text-[#FAF9F6]">
                     {place.name}
                   </h3>
 
                   {place.note && (
-                    <p className="text-xs text-[#66635D] line-clamp-2 leading-relaxed font-light">
+                    <p className="text-xs text-[#66635D] dark:text-[#A8A49B] line-clamp-2 leading-relaxed font-light">
                       {place.note}
                     </p>
                   )}
 
                   {parentTrip && (
-                    <div className="pt-2 border-t border-[#F0EEE6] flex items-center justify-between text-[10px] text-[#88857E]">
+                    <div className="pt-2 border-t border-[#F0EEE6] dark:border-[#2C2C29] flex items-center justify-between text-[10px] text-[#88857E] dark:text-[#9A968E]">
                       <span>{parentTrip.country}</span>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           onSelectTrip(parentTrip, 'story');
                         }}
-                        className="text-[#1F1E1D] hover:underline"
+                        className="text-[#1F1E1D] dark:text-[#FAF9F6] hover:underline"
                       >
                         看完整遊記 →
                       </button>
