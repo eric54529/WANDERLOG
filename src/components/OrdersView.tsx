@@ -138,10 +138,10 @@ export function OrdersView({ currentMember, onOpenAuthModal, onNavigateHome }: O
 
   const sqlCode = `-- ==========================================
 -- 建立 orders 資料表與 Supabase RLS 安全政策
--- 請將以下 SQL 貼到 Supabase SQL Editor 執行
+-- 請將以下 SQL 貼到 Supabase SQL Editor 點擊 Run 執行
 -- ==========================================
 
--- 1. 建立 orders 資料表
+-- 1. 建立 orders 資料表 (若已存在則略過)
 CREATE TABLE IF NOT EXISTS public.orders (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL DEFAULT auth.uid(),
@@ -153,10 +153,22 @@ CREATE TABLE IF NOT EXISTS public.orders (
   created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now())
 );
 
+-- 確保 notes 欄位存在 (相容舊版 note 命名)
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns 
+    WHERE table_name = 'orders' AND column_name = 'notes'
+  ) THEN
+    ALTER TABLE public.orders ADD COLUMN IF NOT EXISTS notes TEXT;
+  END IF;
+END $$;
+
 -- 2. 啟用 Row Level Security (RLS)
 ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
 
--- 3. 政策：登入者只能讀取自己的訂單
+-- 3. 政策：登入者只能讀取自己的訂單 (先 DROP 再 CREATE 避免重複錯誤)
+DROP POLICY IF EXISTS "Users can view own orders" ON public.orders;
 CREATE POLICY "Users can view own orders"
   ON public.orders
   FOR SELECT
@@ -164,13 +176,17 @@ CREATE POLICY "Users can view own orders"
   USING (auth.uid() = user_id);
 
 -- 4. 政策：登入者只能新增自己的訂單
+DROP POLICY IF EXISTS "Users can insert own orders" ON public.orders;
 CREATE POLICY "Users can insert own orders"
   ON public.orders
   FOR INSERT
   TO authenticated
   WITH CHECK (auth.uid() = user_id);
 
--- 5. （可選）建立索引優化查詢
+-- 5. 授與 authenticated 角色基本權限
+GRANT ALL ON TABLE public.orders TO authenticated;
+
+-- 6. 建立索引優化查詢
 CREATE INDEX IF NOT EXISTS idx_orders_user_id ON public.orders(user_id);
 CREATE INDEX IF NOT EXISTS idx_orders_created_at ON public.orders(created_at DESC);
 `;
